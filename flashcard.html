@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Lesson Plan</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #e9ecef;
+            color: #343a40;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .flashcard {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .flashcard:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        select, input[type="text"], input[type="date"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+            transition: border 0.2s;
+        }
+
+        select:focus, input[type="text"]:focus, input[type="date"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .header-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-info h1, .header-info h2 {
+            margin: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .header-info h1:hover, .header-info h2:hover {
+            color: #0056b3;
+        }
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+         .table-container h1, 
+.table-container h2, 
+.table-container p {
+    font-family: 'Arial', sans-serif;
+    margin: 10px 0;
+    text-align: center;
+    position: relative;
+}
+
+/* 3D effect for h1 */
+.table-container h1 {
+    font-size: 36px;
+    color: #28a745;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5), -2px -2px 5px rgba(255, 255, 255, 0.5);
+    background: linear-gradient(145deg, #007bff, #0056b3);
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.table-container h1:hover {
+    transform: translateY(-5px);
+}
+
+/* 3D effect for h2 */
+.table-container h2 {
+    font-size: 28px;
+    color: 10t500;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), -2px -2px 4px rgba(255, 255, 255, 0.5);
+    background: linear-gradient(145deg, #28a745, #1e7e34);
+    padding: 8px 15px;
+    border-radius: 8px;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.table-container h2:hover {
+    transform: translateY(-5px);
+}
+
+/* 3D effect for paragraphs */
+.table-container p {
+    font-size: 18px;
+    color: #6c757d;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.table-container p:hover {
+    transform: translateY(-3px);
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- New Flashcard for Date and Day -->
+        <div class="flashcard">
+            <h2>Date and Day</h2>
+            <div>
+                <label for="lessonDate">તારીખ:</label>
+                <input type="date" id="lessonDate" onchange="updateDate()" required>
+                <label for="daySelect">વાર:</label>
+                <select id="daySelect" onchange="updateDay()" required>
+                    <option value="">-- વાર --</option>
+                    <option value="Monday">સોમવાર</option>
+                    <option value="Tuesday">મંગળવાર</option>
+                    <option value="Wednesday">બુધવાર</option>
+                    <option value="Thursday">ગુરુવાર</option>
+                    <option value="Friday">સુકરવાર</option>
+                    <option value="Saturday">શનિવાર</option>
+                    <option value="Sunday">રવિવાર</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="flashcard">
+            <h2>દૈનિક નોંધપોથી</h2>
+            <div>
+                <label for="subject">ધોરણ અને વિષય:</label>
+                <select id="subject" onchange="populateTopics()" required>
+                    <option value="">-- પસંદ કરો --</option>
+                    <option value="Math">Math</option>
+                    <option value="Science">Science</option>
+                    <option value="History">History</option>
+                </select>
+            </div>
+            <div>
+                <label for="topic">પ્રકરણ:</label>
+                <select id="topic" onchange="populateSubcategories()" disabled required>
+                    <option value="">-- પસંદ કરો --</option>
+                </select>
+            </div>
+            <div>
+                <label for="subcategoryA">અધ્યયન નિસ્પતિ અને મુદા:</label>
+                <select id="subcategoryA" disabled>
+                    <option value="">-- પસંદ કરો --</option>
+                </select>
+            </div>
+            <div>
+                <label for="subcategoryB">અધ્યયન નિસ્પતિ અને મુદા:</label>
+                <select id="subcategoryB" disabled>
+                    <option value="">-- પસંદ કરો --</option>
+                </select>
+            </div>
+            <div>
+                <label for="subcategoryC">અધ્યયન નિસ્પતિ અને મુદા:</label>
+                <select id="subcategoryC" disabled>
+                    <option value="">-- પસંદ કરો --</option>
+                </select>
+            </div>
+            <div>
+                <label for="material">શૈક્ષણિક સાધનો (select multiple):</label>
+                <select id="material" multiple>
+                    <option value="Book">Book</option>
+                    <option value="Handouts">Handouts</option>
+                    <option value="Videos">Videos</option>
+                </select>
+            </div>
+            <div>
+                <label for="activity">પ્રવૃતિ:(વૈકલ્પિક)</label>
+                <input type="text" id="activity" placeholder="પ્રવૃતિ લખો...">
+            </div>
+            <div>
+                <label for="concept">ગૃહકાર્ય:(વૈકલ્પિક)</label>
+                <input type="text" id="concept" placeholder="ગૃહકાર્ય લખો ...">
+            </div>
+            <button onclick="submitLessonPlan()">Submit</button>
+        </div>
+
+        <div class="flashcard table-container" id="tableFlashcard">
+            <h2>દૈનિક નોંધપોથી</h2>
+            <div class="header-info">
+             <h1 id="username-heading"></h1>
+    
+    <!-- Heading for School Name -->
+    <h2 id="school-name-heading"></h2>
+
+    <script>
+        // Retrieve the username and school name from localStorage
+        const username = localStorage.getItem('username');
+        const schoolName = localStorage.getItem('schoolName');
+
+        // Update the h1 element with the username
+        if (username) {
+            document.getElementById('username-heading').innerText = `${username}`;
+        } else {
+            document.getElementById('username-heading').innerText = 'Welcome, Guest!';
+        }
+
+        // Update the h2 element with the school name
+        if (schoolName) {
+            document.getElementById('school-name-heading').innerText = `${schoolName}`;
+        } else {
+            document.getElementById('school-name-heading').innerText = 'School Name not found!';
+        }
+    </script>
+
+
+<p id="selectedDate">તારીખ:</p>
+                <p id="selectedDay">વાર:</p>
+
+
+            </div>
+            <table id="lessonPlanTable">
+                <thead>
+                    <tr>
+                        <th>તાસ</th>
+                        <th>ધોરણ અને વિષય</th>
+                        <th>પ્રકરણ</th>
+                        <th>અધ્યયન નિસ્પતિ અને મુદા</th>
+                        <th>શૈક્ષણિક સાધનો અને પ્રવૃતિ</th>
+                        <th>ગૃહકાર્ય</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="button-group">
+            <button onclick="printTable()">Print/generate pdf</button>
+            <button onclick="exportToExcel()">Export to Excel</button>
+            <button onclick="generateWord()">Generate Word Document</button>
+        </div>
+    </div>
+
+    <script>
+        let entryNumber = 1;
+        const data = {
+            Math: {
+                Algebra: {
+                    subcategories: {
+                        A: ['Equations', 'Inequalities'],
+                        B: ['Functions', 'Graphs'],
+                        C: ['Linear Equations', 'Quadratic Equations'],
+                    }
+                },
+                Geometry: {
+                    subcategories: {
+                        A: ['Shapes', 'Angles'],
+                        B: ['Area', 'Perimeter'],
+                        C: ['Volume', 'Pythagorean Theorem'],
+                    }
+                }
+            },
+            Science: {
+                Physics: {
+                    subcategories: {
+                        A: ['Motion', 'Forces'],
+                        B: ['Energy', 'Waves'],
+                        C: ['Thermodynamics', 'Electromagnetism'],
+                    }
+                },
+                Biology: {
+                    subcategories: {
+                        A: ['Cells', 'Genetics'],
+                        B: ['Evolution', 'Ecology'],
+                        C: ['Anatomy', 'Physiology'],
+                    }
+                }
+            },
+            History: {
+                Ancient: {
+                    subcategories: {
+                        A: ['Egypt', 'Greece'],
+                        B: ['Rome', 'China'],
+                        C: ['Mesopotamia', 'India'],
+                    }
+                },
+                Modern: {
+                    subcategories: {
+                        A: ['World Wars', 'Cold War'],
+                        B: ['Civil Rights', 'Globalization'],
+                        C: ['Technological Advances', 'Cultural Changes'],
+                    }
+                }
+            }
+        };
+
+        function populateTopics() {
+            const subject = document.getElementById('subject').value;
+            const topicDropdown = document.getElementById('topic');
+            topicDropdown.innerHTML = '<option value="">-- Choose a Topic --</option>';
+            if (data[subject]) {
+                Object.keys(data[subject]).forEach(topic => {
+                    const option = document.createElement('option');
+                    option.value = topic;
+                    option.textContent = topic;
+                    topicDropdown.appendChild(option);
+                });
+                topicDropdown.disabled = false;
+            }
+        }
+
+        function populateSubcategories() {
+            const subject = document.getElementById('subject').value;
+            const topic = document.getElementById('topic').value;
+            clearSubcategoryDropdowns();
+            if (data[subject] && data[subject][topic]) {
+                const subcategories = data[subject][topic].subcategories;
+                if (subcategories.A) {
+                    const subcategoryADropdown = document.getElementById('subcategoryA');
+                    subcategories.A.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option;
+                        opt.textContent = option;
+                        subcategoryADropdown.appendChild(opt);
+                    });
+                    subcategoryADropdown.disabled = false;
+                }
+                if (subcategories.B) {
+                    const subcategoryBDropdown = document.getElementById('subcategoryB');
+                    subcategories.B.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option;
+                        opt.textContent = option;
+                        subcategoryBDropdown.appendChild(opt);
+                    });
+                    subcategoryBDropdown.disabled = false;
+                }
+                if (subcategories.C) {
+                    const subcategoryCDropdown = document.getElementById('subcategoryC');
+                    subcategories.C.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option;
+                        opt.textContent = option;
+                        subcategoryCDropdown.appendChild(opt);
+                    });
+                    subcategoryCDropdown.disabled = false;
+                }
+            }
+        }
+
+        function clearSubcategoryDropdowns() {
+            const subcategoryADropdown = document.getElementById('subcategoryA');
+            const subcategoryBDropdown = document.getElementById('subcategoryB');
+            const subcategoryCDropdown = document.getElementById('subcategoryC');
+
+            subcategoryADropdown.innerHTML = '<option value="">-- Choose Subcategory A --</option>';
+            subcategoryADropdown.disabled = true;
+
+            subcategoryBDropdown.innerHTML = '<option value="">-- Choose Subcategory B --</option>';
+            subcategoryBDropdown.disabled = true;
+
+            subcategoryCDropdown.innerHTML = '<option value="">-- Choose Subcategory C --</option>';
+            subcategoryCDropdown.disabled = true;
+        }
+
+        function updateDate() {
+            const dateInput = document.getElementById('lessonDate').value;
+            document.getElementById('selectedDate').innerText = `Date: ${dateInput}`;
+        }
+
+        function updateDay() {
+            const dayInput = document.getElementById('daySelect').value;
+            document.getElementById('selectedDay').innerText = `Day: ${dayInput}`;
+        }
+
+        function submitLessonPlan() {
+            const subject = document.getElementById('subject').value;
+            const topic = document.getElementById('topic').value;
+            const subcategoryA = document.getElementById('subcategoryA').value;
+            const subcategoryB = document.getElementById('subcategoryB').value;
+            const subcategoryC = document.getElementById('subcategoryC').value;
+            const materials = Array.from(document.getElementById('material').selectedOptions).map(option => option.value).join(', ');
+            const activity = document.getElementById('activity').value;
+            const concept = document.getElementById('concept').value;
+
+            if (!subject || !topic || !subcategoryA) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            const subcategoryALine = subcategoryA ? `${subcategoryA}` : '';
+            const subcategoryBLine = subcategoryB ? `${subcategoryB}` : '';
+            const subcategoryCLine = subcategoryC ? `${subcategoryC}` : '';
+            const materialsLine = materials ? `Materials: ${materials}` : '';
+            const activityLine = activity ? `Activity: ${activity}` : '';
+            const conceptLine = concept ? concept : '-';
+
+            const tableBody = document.querySelector("#lessonPlanTable tbody");
+            const row = tableBody.insertRow();
+            row.insertCell(0).textContent = entryNumber++;
+            row.insertCell(1).textContent = subject;
+            row.insertCell(2).textContent = topic;
+            row.insertCell(3).innerHTML = `${subcategoryALine}<br>${subcategoryBLine}<br>${subcategoryCLine}`;
+            row.insertCell(4).innerHTML = `${materialsLine}<br>${activityLine}`;
+            row.insertCell(5).textContent = conceptLine;
+
+            // Commented out date and day reset to keep their values on form submission
+            // resetForm();
+        }
+
+        function resetForm() {
+            document.getElementById('subject').value = '';
+            document.getElementById('topic').innerHTML = '<option value="">-- Choose a Topic --</option>';
+            document.getElementById('topic').disabled = true;
+            clearSubcategoryDropdowns();
+            document.getElementById('material').selectedIndex = -1;
+            document.getElementById('activity').value = '';
+            document.getElementById('concept').value = '';
+            // Reset date and day fields if needed, remove the comments to enable.
+            // document.getElementById('lessonDate').value = ''; // Reset date
+            // document.getElementById('daySelect').value = ''; // Reset day
+            // document.getElementById('selectedDate').innerText = 'Date:'; // Clear displayed date
+            // document.getElementById('selectedDay').innerText = 'Day:'; // Clear displayed day
+        }
+
+        function printTable() {
+            const printContents = document.getElementById('tableFlashcard').innerHTML;
+            const newWindow = window.open('', '', 'width=900,height=600');
+            newWindow.document.write('<html><head><title>Print</title>');
+            newWindow.document.write('</head><body>');
+            newWindow.document.write(printContents);
+            newWindow.document.write('</body></html>');
+            newWindow.document.close();
+            newWindow.print();
+        }
+
+        function generatePDF() {
+            const printContents = document.getElementById('tableFlashcard').innerHTML;
+            const newWindow = window.open('', '', 'width=900,height=600');
+            newWindow.document.write('<html><head><title>Generate PDF</title>');
+            newWindow.document.write('</head><body>');
+            newWindow.document.write(printContents);
+            newWindow.document.write('</body></html>');
+            newWindow.document.close();
+            newWindow.print();
+        }
+
+        function exportToExcel() {
+            const table = document.getElementById("lessonPlanTable");
+            const workbook = XLSX.utils.table_to_book(table, { sheet: "Sheet 1" });
+            XLSX.writeFile(workbook, "lesson_plan.xlsx");
+        }
+
+        function generateWord() {
+            const schoolName = document.getElementById("schoolNameHeader").innerText;
+            const tableHtml = document.getElementById("tableFlashcard").innerHTML;
+
+            const blob = new Blob([`<html><head><meta charset="UTF-8"></head><body><h1>${schoolName}</h1>${tableHtml}</body></html>`], {
+                type: 'application/msword'
+            });
+
+            const a = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            a.href = url;
+            a.download = 'lesson_plan.doc';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+    <script>
+    function printTable() {
+        const printContents = document.getElementById('tableFlashcard').innerHTML;
+        const newWindow = window.open('', '', 'width=900,height=600');
+        newWindow.document.write('<html><head><title>Print</title>');
+        newWindow.document.write('<style>');
+        newWindow.document.write(`
+            body {
+                font-family: 'Arial', sans-serif;
+                margin: 20px;
+                background-color: #fff;
+                color: #000;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 10px;
+                border: 1px solid #dee2e6;
+                text-align: left;
+            }
+            th {
+                background-color: #007bff;
+                color: white;
+            }
+        `);
+        newWindow.document.write('</style>');
+        newWindow.document.write('</head><body>');
+        newWindow.document.write(printContents);
+        newWindow.document.write('</body></html>');
+        newWindow.document.close();
+        newWindow.focus();
+        newWindow.print();
+        newWindow.close();
+    }
+</script>
+<script>
+    function printTable() {
+        const printContents = document.getElementById('tableFlashcard').innerHTML;
+        const newWindow = window.open('', '', 'width=900,height=600');
+        newWindow.document.write('<html><head><title>Print</title>');
+        newWindow.document.write('<style>');
+        newWindow.document.write(`
+            body {
+                font-family: 'Arial', sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #fff;
+                color: #000;
+                font-size: 16px; /* Default font size */
+            }
+            .print-container {
+                padding: 10px; /* Reduced padding */
+                border: 5px solid #007bff; /* Border color and size */
+                border-radius: 5px; /* Slightly rounded corners */
+                margin: 0; /* No margin to avoid extra space */
+                box-sizing: border-box; /* Include padding and border in width */
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 10px; /* Reduced margin */
+                page-break-inside: auto; /* Prevent page breaks inside the table */
+            }
+            thead {
+                background-color: #007bff; /* Attractive blue background */
+                color: white;
+                font-weight: bold; /* Bold font */
+                text-transform: uppercase; /* Uppercase text for a professional look */
+            }
+            th {
+                padding: 8px; /* Reduced padding */
+                border: 1px solid #dee2e6;
+                text-align: left;
+                font-weight: bold;
+                color: #000; /* Dark color for thead text */
+                background-color: #007bff; /* Blue background for header */
+                border-right: 1px solid #fff; /* Right border for thead cells */
+            }
+            td {
+                padding: 8px; /* Reduced padding */
+                border: 1px solid #dee2e6;
+                text-align: left;
+                font-weight: normal; /* Normal font for table data */
+                border-right: 1px solid #dee2e6; /* Right border for table cells */
+            }
+            tr:last-child td {
+                border-bottom: 2px solid #007bff; /* Bottom border for last row */
+            }
+            h1, h2, p {
+                text-align: center;
+                font-weight: bold;
+                margin-bottom: 15px; /* Kept for spacing */
+            }
+            @media print {
+                body, html {
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    height: auto; /* Allow content to fit the page */
+                }
+                .print-container {
+                    margin: 0;
+                    padding: 10px; /* Consistent padding for print */
+                    border: 5px solid #007bff; /* Keep the same border for print */
+                    border-radius: 5px; /* Rounded corners */
+                    width: calc(100% - 20px); /* Ensure it fits the page */
+                }
+                table {
+                    page-break-inside: avoid; /* Avoid page breaks within the table */
+                    max-height: 90vh; /* Limit height to a percentage of the viewport */
+                    overflow: hidden; /* Hide overflow */
+                    transform: scale(0.9); /* Scale down if needed */
+                    transform-origin: top left; /* Scale from the top-left corner */
+                }
+                /* Responsive adjustments */
+                th, td {
+                    font-size: 14px; /* Smaller font size */
+                }
+            }
+        `);
+        newWindow.document.write('</style>');
+        newWindow.document.write('</head><body>');
+        newWindow.document.write('<div class="print-container">'); // Add container for the border
+        newWindow.document.write(printContents);
+        newWindow.document.write('</div>'); // Close container
+        newWindow.document.write('</body></html>');
+        newWindow.document.close();
+        newWindow.focus();
+        newWindow.print();
+        newWindow.close();
+    }
+</script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+   <script> document.addEventListener('contextmenu', event => event.preventDefault());</script>
+
+</body>
+</html>
