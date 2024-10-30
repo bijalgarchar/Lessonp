@@ -2,15 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
     <title>Daily Lesson Plan</title>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
+         html, body {
+            width: 1024px; /* Fixed desktop width */
+            margin: 0;
+            padding: 0;
+            overflow-x: auto; /* Allows horizontal scrolling if needed */
+        }
+
+        /* Center content horizontally on larger screens */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             background-color: #e9ecef;
             color: #343a40;
         }
+        .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.item {
+    flex: 1 1 45%; /* Each item takes 45% of the width, and adjusts on smaller screens */
+    margin: 10px;
+}
+
+@media (max-width: 768px) {
+    .item {
+        flex: 1 1 100%; /* On small screens, make each item take full width */
+    }
+}
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.item {
+    flex: 1 1 45%; /* Each item takes 45% of the width, and adjusts on smaller screens */
+    margin: 10px;
+}
+
+@media (max-width: 768px) {
+    .item {
+        flex: 1 1 100%; /* On small screens, make each item take full width */
+    }
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns layout on larger screens */
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* Single column layout on smaller screens */
+    }
+}
+
 
         .container {
             width: 90%;
@@ -41,7 +101,7 @@
         h2 {
             text-align: center;
             color: #007bff;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-size: 24px;
         }
 
@@ -138,18 +198,18 @@
 .table-container h2, 
 .table-container p {
     font-family: 'Arial', sans-serif;
-    margin: 10px 0;
+    margin: 5px 0;
     text-align: center;
     position: relative;
 }
 
 /* 3D effect for h1 */
 .table-container h1 {
-    font-size: 36px;
+    font-size: 25px;
     color: #28a745;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5), -2px -2px 5px rgba(255, 255, 255, 0.5);
-    background: linear-gradient(145deg, #007bff, #0056b3);
-    padding: 10px 20px;
+    background: white;
+    padding: 5px 10px;
     border-radius: 10px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
@@ -161,10 +221,10 @@
 
 /* 3D effect for h2 */
 .table-container h2 {
-    font-size: 28px;
+    font-size: 20px;
     color: 10t500;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), -2px -2px 4px rgba(255, 255, 255, 0.5);
-    background: linear-gradient(145deg, #28a745, #1e7e34);
+    background: white;
     padding: 8px 15px;
     border-radius: 8px;
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
@@ -177,7 +237,7 @@
 
 /* 3D effect for paragraphs */
 .table-container p {
-    font-size: 18px;
+    font-size: 15px;
     color: #6c757d;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
     background: linear-gradient(145deg, #f8f9fa, #e9ecef);
@@ -190,6 +250,62 @@
 .table-container p:hover {
     transform: translateY(-3px);
 }
+@media print {
+    .signature-section {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 50px;
+    }
+    .signature-box {
+        text-align: center;
+    }
+    .signature-space {
+        width: 150px;
+        height: 50px;
+        border: 1px solid black;
+        margin: 5px auto;
+    }
+}
+ #lessonPlanTable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    #lessonPlanTable th,
+    #lessonPlanTable td {
+        border: 1px solid #000; /* બ્લેક બોર્ડર */
+        padding: 8px; /* પેડિંગ */
+        text-align: left; /* ટેક્સ્ટ alinhamento */
+    }
+    /* કૉલમની પહોળાઈ ઘટાડવા માટે */
+    #lessonPlanTable td:nth-child(1) {
+        width: 50px; /* પહોળાઈ 50px */
+        font-size: 14px; /* ફૉન્ટ સાઇઝ 12px */
+    }
+    #lessonPlanTable td:nth-child(2) {
+        width: 80px; /* પહોળાઈ 80px */
+        font-size: 14px; /* ફૉન્ટ સાઇઝ 12px */
+    }
+    #lessonPlanTable td:nth-child(3) {
+        width: 20px; /* પહોળાઈ 60px */
+        font-size: 13px; /* ફૉન્ટ સાઇઝ 12px */
+    }
+     #lessonPlanTable td:nth-child(4) {
+        width: 100px; /* પહોળાઈ 60px */
+        font-size: 13px; /* ફૉન્ટ સાઇઝ 12px */
+    }
+     #lessonPlanTable td:nth-child(5) {
+        width: 80px; /* પહોળાઈ 60px */
+        font-size: 13px; /* ફૉન્ટ સાઇઝ 12px */
+    }
+    #lessonPlanTable td:nth-child(6) {
+        width: 100px; /* પહોળાઈ 100px */
+        font-size: 13px; /* ફૉન્ટ સાઇઝ 12px */
+    }
+    /* પાંદડા (row) ની ઊંચાઈ ઘટાડવા માટે */
+    #lessonPlanTable tbody tr {
+        height: 30px; /* દરેક પાંદડાની ઊંચાઈ 30px */
+    }
+
 
     </style>
 </head>
@@ -204,13 +320,13 @@
                 <label for="daySelect">વાર:</label>
                 <select id="daySelect" onchange="updateDay()" required>
                     <option value="">-- વાર --</option>
-                    <option value="Monday">સોમવાર</option>
-                    <option value="Tuesday">મંગળવાર</option>
-                    <option value="Wednesday">બુધવાર</option>
-                    <option value="Thursday">ગુરુવાર</option>
-                    <option value="Friday">સુકરવાર</option>
-                    <option value="Saturday">શનિવાર</option>
-                    <option value="Sunday">રવિવાર</option>
+                    <option value="સોમવાર">સોમવાર</option>
+                    <option value="મંગળવાર">મંગળવાર</option>
+                    <option value="બુધવાર">બુધવાર</option>
+                    <option value="ગુરુવાર">ગુરુવાર</option>
+                    <option value="શુક્રવાર">સુકરવાર</option>
+                    <option value="શનિવાર">શનિવાર</option>
+                    <option value="રવિવાર">રવિવાર</option>
                 </select>
             </div>
         </div>
@@ -221,9 +337,14 @@
                 <label for="subject">ધોરણ અને વિષય:</label>
                 <select id="subject" onchange="populateTopics()" required>
                     <option value="">-- પસંદ કરો --</option>
-                    <option value="Math">Math</option>
-                    <option value="Science">Science</option>
-                    <option value="History">History</option>
+                    <option value="ધો_6_ગણિત">ગણિત ધો-6 </option>
+                    <option value="ધો_6_વિજ્ઞાન">વિજ્ઞાન ધો-6 </option>
+                    <option value="ધો_7_ગણિત">ગણિત ધો-7</option>
+                    <option value="ધો_7_વિજ્ઞાન">વિજ્ઞાન ધો-7</option>
+                    <option value="ધો_8_ગણિત">ગણિત ધો-8</option>
+                    <option value="ધો_8_વિજ્ઞાન">વિજ્ઞાન ધો-8</option>
+                    <option value="અન્ય_પ્રવૃતિ">અન્ય પ્રવૃતિ</option>
+                   
                 </select>
             </div>
             <div>
@@ -233,29 +354,37 @@
                 </select>
             </div>
             <div>
-                <label for="subcategoryA">અધ્યયન નિસ્પતિ અને મુદા:</label>
+                <label for="subcategoryA">અધ્યયન નિસ્પતિ અને મુદા-1:</label>
                 <select id="subcategoryA" disabled>
                     <option value="">-- પસંદ કરો --</option>
                 </select>
             </div>
             <div>
-                <label for="subcategoryB">અધ્યયન નિસ્પતિ અને મુદા:</label>
+                <label for="subcategoryB">અધ્યયન નિસ્પતિ અને મુદા-2(વૈકલ્પિક):</label>
                 <select id="subcategoryB" disabled>
                     <option value="">-- પસંદ કરો --</option>
                 </select>
             </div>
             <div>
-                <label for="subcategoryC">અધ્યયન નિસ્પતિ અને મુદા:</label>
+                <label for="subcategoryC">અધ્યયન નિસ્પતિ અને મુદા-3(વૈકલ્પિક):</label>
                 <select id="subcategoryC" disabled>
                     <option value="">-- પસંદ કરો --</option>
                 </select>
             </div>
             <div>
-                <label for="material">શૈક્ષણિક સાધનો (select multiple):</label>
+                <label for="material">શૈક્ષણિક સાધનો:</label>
                 <select id="material" multiple>
-                    <option value="Book">Book</option>
-                    <option value="Handouts">Handouts</option>
-                    <option value="Videos">Videos</option>
+                    <option value="ચોક,ડસ્ટર,પાઠ્યપુસ્તક">ચોક,ડસ્ટર,પાઠ્યપુસ્તક</option>
+                     <option value="બ્લૅકબૉર્ડ">બ્લૅકબૉર્ડ</option>
+                     <option value="G-Shala+">G-Shala+</option>
+                    <option value="G-Shala">G-Shala</option>
+                    <option value="G-Shala+">G-Shala+</option>
+                    <option value="સ્માર્ટબોર્ડ">સ્માર્ટબોર્ડ</option>
+                    <option value="યૂટ્યૂબ">યૂટ્યૂબ</option>
+                    <option value="ચાર્ટ">ચાર્ટ</option>
+                    <option value="ગાણિતિક સાધનો">ગાણિતિક સાધનો</option>
+                    <option value="પ્રાયોગિક સાધનો">પ્રાયોગિક સાધનો</option>
+                    <option value="TLM">TLM</option>
                 </select>
             </div>
             <div>
@@ -269,194 +398,555 @@
             <button onclick="submitLessonPlan()">Submit</button>
         </div>
 
-        <div class="flashcard table-container" id="tableFlashcard">
-            <h2>દૈનિક નોંધપોથી</h2>
-            <div class="header-info">
-             <h1 id="username-heading"></h1>
-    
-    <!-- Heading for School Name -->
-    <h2 id="school-name-heading"></h2>
 
-    <script>
-        // Retrieve the username and school name from localStorage
-        const username = localStorage.getItem('username');
-        const schoolName = localStorage.getItem('schoolName');
-
-        // Update the h1 element with the username
-        if (username) {
-            document.getElementById('username-heading').innerText = `${username}`;
-        } else {
-            document.getElementById('username-heading').innerText = 'Welcome, Guest!';
-        }
-
-        // Update the h2 element with the school name
-        if (schoolName) {
-            document.getElementById('school-name-heading').innerText = `${schoolName}`;
-        } else {
-            document.getElementById('school-name-heading').innerText = 'School Name not found!';
-        }
-    </script>
+        <div id="pdf-content">
+    <!-- Add the specific content here you want to include in the PDF -->
 
 
-<p id="selectedDate">તારીખ:</p>
-                <p id="selectedDay">વાર:</p>
 
 
+        <!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>દૈનિક નોંધપોથી</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.0.0-rc.7/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="flashcard table-container" id="tableFlashcard">
+        <h2>દૈનિક નોંધપોથી</h2>
+        <div class="header-info">
+            <h1 id="username-heading"></h1>
+            <h2 id="school-name-heading"></h2>
+
+            <script>
+                const username = localStorage.getItem('teacherName');
+                const schoolName = localStorage.getItem('schoolName');
+
+                if (username) {
+                    document.getElementById('username-heading').innerText = `${username}`;
+                } else {
+                    document.getElementById('username-heading').innerText = 'Welcome, Guest!';
+                }
+
+                if (schoolName) {
+                    document.getElementById('school-name-heading').innerText = `${schoolName}`;
+                } else {
+                    document.getElementById('school-name-heading').innerText = 'School Name not found!';
+                }
+            </script>
+            <div style="display: flex; justify-content: space-between;">
+                <p id="selectedDate" style="margin: 0;">તારીખ:</p>
+                <p id="selectedDay" style="margin: 0;">વાર:</p>
             </div>
-            <table id="lessonPlanTable">
-                <thead>
-                    <tr>
-                        <th>તાસ</th>
-                        <th>ધોરણ અને વિષય</th>
-                        <th>પ્રકરણ</th>
-                        <th>અધ્યયન નિસ્પતિ અને મુદા</th>
-                        <th>શૈક્ષણિક સાધનો અને પ્રવૃતિ</th>
-                        <th>ગૃહકાર્ય</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Rows will be added here dynamically -->
-                </tbody>
-            </table>
         </div>
-
-        <div class="button-group">
-            <button onclick="printTable()">Print/generate pdf</button>
-            <button onclick="exportToExcel()">Export to Excel</button>
-            <button onclick="generateWord()">Generate Word Document</button>
+        <table id="lessonPlanTable">
+            <thead>
+                <tr>
+                    <th>તાસ</th>
+                    <th>ધોરણ અને વિષય</th>
+                    <th>પ્રકરણ</th>
+                    <th>અધ્યયન નિસ્પતિ અને મુદા</th>
+                    <th>શૈક્ષણિક સાધનો અને પ્રવૃતિ</th>
+                    <th>ગૃહકાર્ય</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be added here dynamically -->
+            </tbody>
+        </table>
+        <div style="display: flex; justify-content: space-between; margin-top: 50px;">
+            <div style="text-align: center;">
+                <p>શિક્ષકની સહી</p>
+                <div style="width: 150px; height: 35px; border: 1px solid black;"></div>
+            </div>
+            <div style="text-align: center;">
+                <p>આચાર્યની સહી</p>
+                <div style="width: 150px; height: 35px; border: 1px solid black;"></div>
+            </div>
         </div>
     </div>
 
+    <button id="download-pdf">PDF ડાઉનલોડ કરો</button>
+
+            <button onclick="printTable()">Print</button>
+<button onclick="exportToExcel()">Export to Excel</button>
+            
+        
+
     <script>
-        let entryNumber = 1;
-        const data = {
-            Math: {
-                Algebra: {
-                    subcategories: {
-                        A: ['Equations', 'Inequalities'],
-                        B: ['Functions', 'Graphs'],
-                        C: ['Linear Equations', 'Quadratic Equations'],
-                    }
-                },
-                Geometry: {
-                    subcategories: {
-                        A: ['Shapes', 'Angles'],
-                        B: ['Area', 'Perimeter'],
-                        C: ['Volume', 'Pythagorean Theorem'],
-                    }
-                }
-            },
-            Science: {
-                Physics: {
-                    subcategories: {
-                        A: ['Motion', 'Forces'],
-                        B: ['Energy', 'Waves'],
-                        C: ['Thermodynamics', 'Electromagnetism'],
-                    }
-                },
-                Biology: {
-                    subcategories: {
-                        A: ['Cells', 'Genetics'],
-                        B: ['Evolution', 'Ecology'],
-                        C: ['Anatomy', 'Physiology'],
-                    }
-                }
-            },
-            History: {
-                Ancient: {
-                    subcategories: {
-                        A: ['Egypt', 'Greece'],
-                        B: ['Rome', 'China'],
-                        C: ['Mesopotamia', 'India'],
-                    }
-                },
-                Modern: {
-                    subcategories: {
-                        A: ['World Wars', 'Cold War'],
-                        B: ['Civil Rights', 'Globalization'],
-                        C: ['Technological Advances', 'Cultural Changes'],
-                    }
-                }
-            }
-        };
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
 
-        function populateTopics() {
-            const subject = document.getElementById('subject').value;
-            const topicDropdown = document.getElementById('topic');
-            topicDropdown.innerHTML = '<option value="">-- Choose a Topic --</option>';
-            if (data[subject]) {
-                Object.keys(data[subject]).forEach(topic => {
-                    const option = document.createElement('option');
-                    option.value = topic;
-                    option.textContent = topic;
-                    topicDropdown.appendChild(option);
-                });
-                topicDropdown.disabled = false;
-            }
-        }
+            html2canvas(document.getElementById('tableFlashcard'), { scale: 2 }).then(function(canvas) {
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const imgData = canvas.toDataURL('image/png');
 
-        function populateSubcategories() {
-            const subject = document.getElementById('subject').value;
-            const topic = document.getElementById('topic').value;
-            clearSubcategoryDropdowns();
-            if (data[subject] && data[subject][topic]) {
-                const subcategories = data[subject][topic].subcategories;
-                if (subcategories.A) {
-                    const subcategoryADropdown = document.getElementById('subcategoryA');
-                    subcategories.A.forEach(option => {
-                        const opt = document.createElement('option');
-                        opt.value = option;
-                        opt.textContent = option;
-                        subcategoryADropdown.appendChild(opt);
-                    });
-                    subcategoryADropdown.disabled = false;
+                const imgWidth = 190; // Width for PDF
+                const pageHeight = 295; // A4 page height
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+
+                let position = 0;
+
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
                 }
-                if (subcategories.B) {
-                    const subcategoryBDropdown = document.getElementById('subcategoryB');
-                    subcategories.B.forEach(option => {
-                        const opt = document.createElement('option');
-                        opt.value = option;
-                        opt.textContent = option;
-                        subcategoryBDropdown.appendChild(opt);
-                    });
-                    subcategoryBDropdown.disabled = false;
-                }
-                if (subcategories.C) {
-                    const subcategoryCDropdown = document.getElementById('subcategoryC');
-                    subcategories.C.forEach(option => {
-                        const opt = document.createElement('option');
-                        opt.value = option;
-                        opt.textContent = option;
-                        subcategoryCDropdown.appendChild(opt);
-                    });
-                    subcategoryCDropdown.disabled = false;
-                }
+
+                pdf.save('daiyik_nondapothi.pdf');
+            });
+        });
+    </script>
+    
+</body>
+</html>
+
+
+    
+    </div>
+    <!-- Add the Remove Row and Undo buttons -->
+
+
+
+
+
+    <script>
+       let entryNumber = 1;
+const data = {
+    ધો_6_ગણિત: {
+        અપૂર્ણાંક_સંખ્યાઓ: {  // Internal key without space
+            subcategories: {
+                A: ['M605.1-અપૂર્ણાંકોનો પરિચય', 'M605.1-સ્વાધ્યાય 7.1', 'M605.2-સંખ્યારેખા પર અપૂર્ણાંકોનું નિદર્શન', 'M605.3-શુદ્ધ ,M605.3-અશુદ્ધ અને મિશ્ર અપૂર્ણાંક', 'M605.3-અશુદ્ધ અપૂર્ણાંકને મિશ્ર અપૂર્ણાંકમાં ફેરવવા' ,'M605.3-મિશ્ર અપૂર્ણાંકને અશુદ્ધ અપૂર્ણાંક માં ફેરવવા', 'M605.3-સ્વાધ્યાય 7.2 ', 'M605.4-સમઅપૂર્ણાંકોની સમજૂતી', 'M605.5-અપૂર્ણાંકોનું અતિસંક્ષિપ્ત સ્વરૂપ', 'M605.5-સ્વાધ્યાય 7.3 ', 'M605.6-સમછેદી અપૂર્ણાંકોની સમજૂતી', 'M605.7-અપૂર્ણાંકોની તુલના', 'M605.8-સમછેદી અપૂર્ણાંકોની સરખામણી', 'M605.8-વિષમછેદી અપૂર્ણાંકોની સરખામણી', 'M605.8-સ્વાધ્યાય 7.4 ', 'M605.7-અપૂર્ણાંકોનું સતુલન શોધવું', 'M605.7-સ્વાધ્યાય 7.5', 'M605.9-અપૂર્ણાંકોના સરવાળા', 'M605.9-અપૂર્ણાંકોની બાદબાકી', 'M605.9-સ્વાધ્યાય 7.6 ', 'પુનરાવર્તન'],
+                B: ['M605.1-અપૂર્ણાંકોનો પરિચય', 'M605.1-સ્વાધ્યાય 7.1', 'M605.2-સંખ્યારેખા પર અપૂર્ણાંકોનું નિદર્શન', 'M605.3-શુદ્ધ ,M605.3-અશુદ્ધ અને મિશ્ર અપૂર્ણાંક', 'M605.3-અશુદ્ધ અપૂર્ણાંકને મિશ્ર અપૂર્ણાંકમાં ફેરવવા' ,'M605.3-મિશ્ર અપૂર્ણાંકને અશુદ્ધ અપૂર્ણાંક માં ફેરવવા', 'M605.3-સ્વાધ્યાય 7.2 ', 'M605.4-સમઅપૂર્ણાંકોની સમજૂતી', 'M605.5-અપૂર્ણાંકોનું અતિસંક્ષિપ્ત સ્વરૂપ', 'M605.5-સ્વાધ્યાય 7.3 ', 'M605.6-સમછેદી અપૂર્ણાંકોની સમજૂતી', 'M605.7-અપૂર્ણાંકોની તુલના', 'M605.8-સમછેદી અપૂર્ણાંકોની સરખામણી', 'M605.8-વિષમછેદી અપૂર્ણાંકોની સરખામણી', 'M605.8-સ્વાધ્યાય 7.4 ', 'M605.7-અપૂર્ણાંકોનું સતુલન શોધવું', 'M605.7-સ્વાધ્યાય 7.5', 'M605.9-અપૂર્ણાંકોના સરવાળા', 'M605.9-અપૂર્ણાંકોની બાદબાકી', 'M605.9-સ્વાધ્યાય 7.6 '],
+                C: ['M605.1-અપૂર્ણાંકોનો પરિચય', 'M605.1-સ્વાધ્યાય 7.1', 'M605.2-સંખ્યારેખા પર અપૂર્ણાંકોનું નિદર્શન', 'M605.3-શુદ્ધ ,M605.3-અશુદ્ધ અને મિશ્ર અપૂર્ણાંક', 'M605.3-અશુદ્ધ અપૂર્ણાંકને મિશ્ર અપૂર્ણાંકમાં ફેરવવા' ,'M605.3-મિશ્ર અપૂર્ણાંકને અશુદ્ધ અપૂર્ણાંક માં ફેરવવા', 'M605.3-સ્વાધ્યાય 7.2 ', 'M605.4-સમઅપૂર્ણાંકોની સમજૂતી', 'M605.5-અપૂર્ણાંકોનું અતિસંક્ષિપ્ત સ્વરૂપ', 'M605.5-સ્વાધ્યાય 7.3 ', 'M605.6-સમછેદી અપૂર્ણાંકોની સમજૂતી', 'M605.7-અપૂર્ણાંકોની તુલના', 'M605.8-સમછેદી અપૂર્ણાંકોની સરખામણી', 'M605.8-વિષમછેદી અપૂર્ણાંકોની સરખામણી', 'M605.8-સ્વાધ્યાય 7.4 ', 'M605.7-અપૂર્ણાંકોનું સતુલન શોધવું', 'M605.7-સ્વાધ્યાય 7.5', 'M605.9-અપૂર્ણાંકોના સરવાળા', 'M605.9-અપૂર્ણાંકોની બાદબાકી', 'M605.9-સ્વાધ્યાય 7.6 '],
+
+            }
+        },
+        દશાંસ_સંખ્યાઓ: {
+            subcategories: {
+                A: ['M605.13-દશાંશો ની સરખામણી', 'M605.13-સ્વાધ્યાય 8.1', 'M605.13-દશાંશ નો ઉપયોગ(નાણાં)', 'M605.13-દશાંશ નો ઉપયોગ(લંબાઈ)', 'M605.13-દશાંશ નો ઉપયોગ(વજન)','M605.13-સ્વાધ્યાય 8.2', 'M605.9-દશાંશ સંખ્યાઓનો સરવાળો', 'M605.9-સ્વાધ્યાય 8.3', 'M605.9-દશાંશો ની બાદબાકી', 'M605.9-સ્વાધ્યાય 8.4', 'પુનરાવર્તન'],
+                B: ['M605.13-દશાંશો ની સરખામણી', 'M605.13-સ્વાધ્યાય 8.1', 'M605.13-દશાંશ નો ઉપયોગ(નાણાં)', 'M605.13-દશાંશ નો ઉપયોગ(લંબાઈ)', 'M605.13-દશાંશ નો ઉપયોગ(વજન)','M605.13-સ્વાધ્યાય 8.2', 'M605.9-દશાંશ સંખ્યાઓનો સરવાળો', 'M605.9-સ્વાધ્યાય 8.3', 'M605.9-દશાંશો ની બાદબાકી', 'M605.9-સ્વાધ્યાય 8.4'],
+                C: ['M605.13-દશાંશો ની સરખામણી', 'M605.13-સ્વાધ્યાય 8.1', 'M605.13-દશાંશ નો ઉપયોગ(નાણાં)', 'M605.13-દશાંશ નો ઉપયોગ(લંબાઈ)', 'M605.13-દશાંશ નો ઉપયોગ(વજન)','M605.13-સ્વાધ્યાય 8.2', 'M605.9-દશાંશ સંખ્યાઓનો સરવાળો', 'M605.9-સ્વાધ્યાય 8.3', 'M605.9-દશાંશો ની બાદબાકી', 'M605.9-સ્વાધ્યાય 8.4'],
+            }
+        },
+        માહિતીનું_નિયમન: {
+            subcategories: {
+                A: ['M618.1-માહિતીની નોંધ', 'M618.1-માહિતીનું નું સંગઠન(ઉદાહરણ)', 'M618.2,3-ચિત્ર આલેખ (ઉદાહરણ)', 'M618.2,3-સ્વાધ્યાય 9.1', 'પુનરાવર્તન'],
+                B: ['M618.1-માહિતીની નોંધ', 'M618.1-માહિતીનું નું સંગઠન(ઉદાહરણ)', 'M618.2,3-ચિત્ર આલેખ (ઉદાહરણ)', 'M618.2,3-સ્વાધ્યાય 9.1'],
+                C: ['M618.1-માહિતીની નોંધ', 'M618.1-માહિતીનું નું સંગઠન(ઉદાહરણ)', 'M618.2,3-ચિત્ર આલેખ (ઉદાહરણ)', 'M618.2,3-સ્વાધ્યાય 9.1'],
+            }
+        },
+        માપન: {
+            subcategories: {
+                A: ['જુદા જુદા આકારોની પરિમિતિ', 'M617.1-લંબચોરસ ની પરિમિતિ', 'M617.2-નિયમિત આકારોની પરિમિતિ', 'M617.1,2-સ્વાધ્યાય 10.1', 'M617.6-આલેખ પત્ર પરથી ક્ષેત્રફળ શોધવું', 'M617.6-સ્વાધ્યાય 10.2', 'M617.4-લંબચોરસ નું ક્ષેત્રફળ', 'M617.5-ચોરસ નું ક્ષેત્રફળ', 'M617.7-ઉદાહરણ', 'M617.4 થી 7-સ્વાધ્યાય 10.3', 'પુનરાવર્તન'],
+                B: ['જુદા જુદા આકારોની પરિમિતિ', 'M617.1-લંબચોરસ ની પરિમિતિ', 'M617.2-નિયમિત આકારોની પરિમિતિ', 'M617.1,2-સ્વાધ્યાય 10.1', 'M617.6-આલેખ પત્ર પરથી ક્ષેત્રફળ શોધવું', 'M617.6-સ્વાધ્યાય 10.2', 'M617.4-લંબચોરસ નું ક્ષેત્રફળ', 'M617.5-ચોરસ નું ક્ષેત્રફળ', 'M617.7-ઉદાહરણ', 'M617.4 થી 7-સ્વાધ્યાય 10.3'],
+                C: ['જુદા જુદા આકારોની પરિમિતિ', 'M617.1-લંબચોરસ ની પરિમિતિ', 'M617.2-નિયમિત આકારોની પરિમિતિ', 'M617.1,2-સ્વાધ્યાય 10.1', 'M617.6-આલેખ પત્ર પરથી ક્ષેત્રફળ શોધવું', 'M617.6-સ્વાધ્યાય 10.2', 'M617.4-લંબચોરસ નું ક્ષેત્રફળ', 'M617.5-ચોરસ નું ક્ષેત્રફળ', 'M617.7-ઉદાહરણ', 'M617.4 થી 7-સ્વાધ્યાય 10.3'],
+            }
+        },
+        બીજગણિત: {
+            subcategories: {
+                A: ['M605.13-મેચસ્ટિક પેટર્ન ની સમજૂતી', 'M605.13-ઉદાહરણ', 'સ્વાધ્યાય 11.1', 'પુનરાવર્તન'],
+                B: ['M605.13-મેચસ્ટિક પેટર્ન ની સમજૂતી', 'M605.13-ઉદાહરણ', 'સ્વાધ્યાય 11.1'],
+                C: ['M605.13-મેચસ્ટિક પેટર્ન ની સમજૂતી', 'M605.13-ઉદાહરણ', 'સ્વાધ્યાય 11.1'],
+            }
+        },
+        ગુણોતર_અને_પ્રમાણ: {
+            subcategories: {
+                A: ['M608.1,2-ગુણોતર ની સમજૂતી', 'M608.1,2-ઉદાહરણ ની સમજૂતી', 'M608.1,2-સ્વાધ્યાય 12.1', 'M608.3-પ્રમાણ ની સમજૂતી', 'M608.3-ઉદાહરણ', 'M608.3-સ્વાધ્યાય 12.2', 'M608.3-એકમ પધ્ધતિની સમજૂતી', 'M608.3-ઉદાહરણ 11 થી 15', 'M608.3-સ્વાધ્યાય 12.3', 'પુનરાવર્તન'],
+                B: ['M608.1,2-ગુણોતર ની સમજૂતી', 'M608.1,2-ઉદાહરણ ની સમજૂતી', 'M608.1,2-સ્વાધ્યાય 12.1', 'M608.3-પ્રમાણ ની સમજૂતી', 'M608.3-ઉદાહરણ', 'M608.3-સ્વાધ્યાય 12.2', 'M608.3-એકમ પધ્ધતિની સમજૂતી', 'M608.3-ઉદાહરણ 11 થી 15', 'M608.3-સ્વાધ્યાય 12.3'],
+                C: ['M608.1,2-ગુણોતર ની સમજૂતી', 'M608.1,2-ઉદાહરણ ની સમજૂતી', 'M608.1,2-સ્વાધ્યાય 12.1', 'M608.3-પ્રમાણ ની સમજૂતી', 'M608.3-ઉદાહરણ', 'M608.3-સ્વાધ્યાય 12.2', 'M608.3-એકમ પધ્ધતિની સમજૂતી', 'M608.3-ઉદાહરણ 11 થી 15', 'M608.3-સ્વાધ્યાય 12.3'],
             }
         }
+    },
+    ધો_6_વિજ્ઞાન: {
+        સજીવો_લક્ષણો_અને_નિવાસસ્થાન: {  // Internal key without space
+            subcategories: {
+                A: ['SC603-સજીવો અને તેમની રહેવાની જગ્યા', 'SC605-ભૂ નિવાસસ્થાન અને અનુકૂલન', 'SC605-જલિય નિવાસસ્થાન અને અનુકૂલન', 'SC603-નિવાસસ્થાન ની સફર(રણ)', 'SC603-નિવાસસ્થાન ની સફર (પર્વતીય વિસ્તાર)', 'SC603-નિવાસસ્થાન ની સફર (ઘાસના મેદાનો)', 'SC603-નિવાસસ્થાન ની સફર (શિકારી પ્રાણીઓ)', 'SC603-નિવાસસ્થાન ની સફર (સમુદ્ર)', 'SC603-નિવાસસ્થાન ની સફર (તળાવ અને સરોવર)', 'SC604-સજીવોની લાક્ષણિકતા', 'SC604-શું બધા સજીવોને ખોરાકની જરૂર હોય છે?', 'SC604-શું બધા સજીવ વૃધ્ધિ દર્શાવે છે?', 'SC604-શું દરેક સજીવ શ્વસન કરે છે?', 'SC604-શું દરેક સજીવ ઉતેજનાનો પ્રતિચાર આપે છે?', 'SC604-સજીવો અને ઉત્સર્જન', 'SC604-શું દરેક સજીવ તેના જેવોજ સજીવ ઉત્પન કરે છે?', 'SC604-શું બધા સજીવો હલન ચલન કરે છે?', 'પુનરાવર્તન','સ્વાધ્યાય કાર્ય', 'પ્રવૃતિ'],
+                B: ['SC603-સજીવો અને તેમની રહેવાની જગ્યા', 'SC605-ભૂ નિવાસસ્થાન અને અનુકૂલન', 'SC605-જલિય નિવાસસ્થાન અને અનુકૂલન', 'SC603-નિવાસસ્થાન ની સફર(રણ)', 'SC603-નિવાસસ્થાન ની સફર (પર્વતીય વિસ્તાર)', 'SC603-નિવાસસ્થાન ની સફર (ઘાસના મેદાનો)', 'SC603-નિવાસસ્થાન ની સફર (શિકારી પ્રાણીઓ)', 'SC603-નિવાસસ્થાન ની સફર (સમુદ્ર)', 'SC603-નિવાસસ્થાન ની સફર (તળાવ અને સરોવર)', 'SC604-સજીવોની લાક્ષણિકતા', 'SC604-શું બધા સજીવોને ખોરાકની જરૂર હોય છે?', 'SC604-શું બધા સજીવ વૃધ્ધિ દર્શાવે છે?', 'SC604-શું દરેક સજીવ શ્વસન કરે છે?', 'SC604-શું દરેક સજીવ ઉતેજનાનો પ્રતિચાર આપે છે?', 'SC604-સજીવો અને ઉત્સર્જન', 'SC604-શું દરેક સજીવ તેના જેવોજ સજીવ ઉત્પન કરે છે?', 'SC604-શું બધા સજીવો હલન ચલન કરે છે?'],
+                C: ['SC603-સજીવો અને તેમની રહેવાની જગ્યા', 'SC605-ભૂ નિવાસસ્થાન અને અનુકૂલન', 'SC605-જલિય નિવાસસ્થાન અને અનુકૂલન', 'SC603-નિવાસસ્થાન ની સફર(રણ)', 'SC603-નિવાસસ્થાન ની સફર (પર્વતીય વિસ્તાર)', 'SC603-નિવાસસ્થાન ની સફર (ઘાસના મેદાનો)', 'SC603-નિવાસસ્થાન ની સફર (શિકારી પ્રાણીઓ)', 'SC603-નિવાસસ્થાન ની સફર (સમુદ્ર)', 'SC603-નિવાસસ્થાન ની સફર (તળાવ અને સરોવર)', 'SC604-સજીવોની લાક્ષણિકતા', 'SC604-શું બધા સજીવોને ખોરાકની જરૂર હોય છે?', 'SC604-શું બધા સજીવ વૃધ્ધિ દર્શાવે છે?', 'SC604-શું દરેક સજીવ શ્વસન કરે છે?', 'SC604-શું દરેક સજીવ ઉતેજનાનો પ્રતિચાર આપે છે?', 'SC604-સજીવો અને ઉત્સર્જન', 'SC604-શું દરેક સજીવ તેના જેવોજ સજીવ ઉત્પન કરે છે?', 'SC604-શું બધા સજીવો હલન ચલન કરે છે?'],
+            }
+        },
+        ગતિ_અને_અંતરનું_માપન: {
+            subcategories: {
+                A: ['SC607-વાહનવ્યવહાર ની વાર્તા', 'SC607-આ પાટલી કેટલી પહોળી છે?', 'SC607-કેટલાક માપનો(વેંત ,પગલાં વગેરે)', 'SC607-માપન ના પ્રમાણિત એકમો', 'SC607-લંબાઈ નું સાચું માપન', 'SC612-કોઈ વક્ર રેખાની લંબાઈ માપવી', 'SC606-આપણી આસપાસની ગતિશીલ વસ્તુઓ', 'SC606-ગતિના પ્રકાર', 'પુનરાવર્તન','સ્વાધ્યાય કાર્ય', 'પ્રવૃતિ'],
+                B: ['SC607-વાહનવ્યવહાર ની વાર્તા', 'SC607-આ પાટલી કેટલી પહોળી છે?', 'SC607-કેટલાક માપનો(વેંત ,પગલાં વગેરે)', 'SC607-માપન ના પ્રમાણિત એકમો', 'SC607-લંબાઈ નું સાચું માપન', 'SC612-કોઈ વક્ર રેખાની લંબાઈ માપવી', 'SC606-આપણી આસપાસની ગતિશીલ વસ્તુઓ', 'SC606-ગતિના પ્રકાર'],
+                C: ['SC607-વાહનવ્યવહાર ની વાર્તા', 'SC607-આ પાટલી કેટલી પહોળી છે?', 'SC607-કેટલાક માપનો(વેંત ,પગલાં વગેરે)', 'SC607-માપન ના પ્રમાણિત એકમો', 'SC607-લંબાઈ નું સાચું માપન', 'SC612-કોઈ વક્ર રેખાની લંબાઈ માપવી', 'SC606-આપણી આસપાસની ગતિશીલ વસ્તુઓ', 'SC606-ગતિના પ્રકાર'],
+            }
+        },
+        પ્રકાશ_પડછાયો_અને_પરાવર્તન: {
+            subcategories: {
+                A: ['SC603-પારદર્શક,અપારદર્શક અને પારભાષક', 'SC606-પડછાયા હકીકત માં શું છે?', 'SC609-પીનહોલ કેમેરા', 'SC606-અરીસા અને પરાવર્તન', 'પુનરાવર્તન','સ્વાધ્યાય કાર્ય', 'પ્રવૃતિ'],
+                B: ['SC603-પારદર્શક,અપારદર્શક અને પારભાષક', 'SC606-પડછાયા હકીકત માં શું છે?', 'SC609-પીનહોલ કેમેરા', 'SC606-અરીસા અને પરાવર્તન'],
+                C: ['SC603-પારદર્શક,અપારદર્શક અને પારભાષક', 'SC606-પડછાયા હકીકત માં શું છે?', 'SC609-પીનહોલ કેમેરા', 'SC606-અરીસા અને પરાવર્તન'],
+            }
+        },
+        વિધ્યુત_તથા_પરિપથ: {
+            subcategories: {
+                A: ['SC606-વિધ્યુત કોષ', 'SC606-વિધ્યુત કોષ સાથે જોડાયેલ બલ્બ', 'SC612-વિધ્યુત પરિપથ', 'SC612-વિધ્યુત કળ', 'SC602-વિધ્યુત વાહક', 'પુનરાવર્તન','સ્વાધ્યાય કાર્ય', 'પ્રવૃતિ'],
+                B: ['SC606-વિધ્યુત કોષ', 'SC606-વિધ્યુત કોષ સાથે જોડાયેલ બલ્બ', 'SC612-વિધ્યુત પરિપથ', 'SC612-વિધ્યુત કળ', 'SC602-વિધ્યુત વાહક'],
+                C: ['SC606-વિધ્યુત કોષ', 'SC606-વિધ્યુત કોષ સાથે જોડાયેલ બલ્બ', 'SC612-વિધ્યુત પરિપથ', 'SC612-વિધ્યુત કળ', 'SC602-વિધ્યુત વાહક'],
+            }
+        },
+        ચુંબક_સાથે_ગમ્મત: {
+            subcategories: {
+                A: ['SC604-ચુંબક કઈ રીતે શોધાયો?', 'SC603-ચુંબકીય અને બિનચુંબકીય પદાર્થો', 'SC606-ચુંબક ના ધ્રુવો', 'SC604-દિશાઓની શોધ', 'SC609-તમારું પોતાનું ચુંબક બનાવો', 'SC606-ચુંબકો વચ્ચે આકર્ષણ અને અપાકર્ષણ', 'પુનરાવર્તન','સ્વાધ્યાય કાર્ય', 'પ્રવૃતિ'],
+                B: ['SC604-ચુંબક કઈ રીતે શોધાયો?', 'SC603-ચુંબકીય અને બિનચુંબકીય પદાર્થો', 'SC606-ચુંબક ના ધ્રુવો', 'SC604-દિશાઓની શોધ', 'SC609-તમારું પોતાનું ચુંબક બનાવો', 'SC606-ચુંબકો વચ્ચે આકર્ષણ અને અપાકર્ષણ'],
+                C: ['SC604-ચુંબક કઈ રીતે શોધાયો?', 'SC603-ચુંબકીય અને બિનચુંબકીય પદાર્થો', 'SC606-ચુંબક ના ધ્રુવો', 'SC604-દિશાઓની શોધ', 'SC609-તમારું પોતાનું ચુંબક બનાવો', 'SC606-ચુંબકો વચ્ચે આકર્ષણ અને અપાકર્ષણ'],
+            }
+        },
+        આપણી_આસપાસ_હવા: {
+            subcategories: {
+                A: ['SC604-શું હવા આપણી આસપાસ બધે હાજર છે?', 'SC606-હવા શાની બનેલી છે?', 'SC604-પાણી અને જમીન પર રહેતા પ્રાણીઓને ઑક્સીજન કઈ રીતે ઉપલબ્ધ થાય છે?', 'SC606-વાતાવરણમાં ઑક્સીજન કઈ રીતે વિસ્થાપિત થાય છે?', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC604-શું હવા આપણી આસપાસ બધે હાજર છે?', 'SC606-હવા શાની બનેલી છે?', 'SC604-પાણી અને જમીન પર રહેતા પ્રાણીઓને ઑક્સીજન કઈ રીતે ઉપલબ્ધ થાય છે?', 'SC606-વાતાવરણમાં ઑક્સીજન કઈ રીતે વિસ્થાપિત થાય છે?', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC604-શું હવા આપણી આસપાસ બધે હાજર છે?', 'SC606-હવા શાની બનેલી છે?', 'SC604-પાણી અને જમીન પર રહેતા પ્રાણીઓને ઑક્સીજન કઈ રીતે ઉપલબ્ધ થાય છે?', 'SC606-વાતાવરણમાં ઑક્સીજન કઈ રીતે વિસ્થાપિત થાય છે?', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        }
+    },
+    ધો_7_ગણિત: {
+        રાશીઓનિ_તુલના: {  // Internal key without space
+            subcategories: {
+                A: ['M709.1-ટકાવારી નો અર્થ', 'M709.1-અપૂર્ણાંક સંખ્યાઓને ટકામાં ફેરવવા', 'M709.1-દશાંશોનું ટકામાં રૂપાંતર', 'M709.1-ટકાનું અપૂર્ણાંક,દશાંશમાં રૂપાંતર', 'M709.1-ટકાનો વ્યવહારમાં ઉપયોગ', 'સ્વાધ્યાય 7.1', 'M709.2-ગુણોતરમાંથી ટકા', 'M709.3-ટકામાં વધારો અથવા ઘટાડો', 'M710.1-વસ્તુના ભાવ સાથે સબંધ અથવા ખરીદ અને વેચાણ', 'M710.2-સાદું વ્યાજ અથવા ઉછીના પૈસા પરનો ચાર્જ', 'M710.1,2-સ્વાધ્યાય 7.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M709.1-ટકાવારી નો અર્થ', 'M709.1-અપૂર્ણાંક સંખ્યાઓને ટકામાં ફેરવવા', 'M709.1-દશાંશોનું ટકામાં રૂપાંતર', 'M709.1-ટકાનું અપૂર્ણાંક,દશાંશમાં રૂપાંતર', 'M709.1-ટકાનો વ્યવહારમાં ઉપયોગ', 'સ્વાધ્યાય 7.1', 'M709.2-ગુણોતરમાંથી ટકા', 'M709.3-ટકામાં વધારો અથવા ઘટાડો', 'M710.1-વસ્તુના ભાવ સાથે સબંધ અથવા ખરીદ અને વેચાણ', 'M710.2-સાદું વ્યાજ અથવા ઉછીના પૈસા પરનો ચાર્જ', 'M710.1,2-સ્વાધ્યાય 7.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M709.1-ટકાવારી નો અર્થ', 'M709.1-અપૂર્ણાંક સંખ્યાઓને ટકામાં ફેરવવા', 'M709.1-દશાંશોનું ટકામાં રૂપાંતર', 'M709.1-ટકાનું અપૂર્ણાંક,દશાંશમાં રૂપાંતર', 'M709.1-ટકાનો વ્યવહારમાં ઉપયોગ', 'સ્વાધ્યાય 7.1', 'M709.2-ગુણોતરમાંથી ટકા', 'M709.3-ટકામાં વધારો અથવા ઘટાડો', 'M710.1-વસ્તુના ભાવ સાથે સબંધ અથવા ખરીદ અને વેચાણ', 'M710.2-સાદું વ્યાજ અથવા ઉછીના પૈસા પરનો ચાર્જ', 'M710.1,2-સ્વાધ્યાય 7.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        સંમેય_સંખ્યાઓ: {
+            subcategories: {
+                A: ['સંમેય સંખ્યાઓ એટલે શું?', 'M721.4-સમાન સંમેય સંખ્યાઓ', 'M721.1-ધન અને ઋણ સંમેય સંખ્યાઓ', 'M721.2-સંમેય સંખ્યાનું સંખ્યારેખા પર નિરૂપણ', 'M721.3-પ્રમાણિત સ્વરૂપમાં સંમેય સંખ્યા', 'M721.4-સંમેય સંખ્યાની સરખામણી', 'M721.4-બે સંમેય સંખ્યાની વચ્ચેની સંમેય સંખ્યા', 'સ્વાધ્યાય 8.1', 'M721.5-સંમેય સંખ્યાનો સરવાળો', 'M721.5-સંમેય સંખ્યાની વિરોધી સંખ્યા', 'M721.5-સંમેય સંખ્યાની બાદબાકી', 'M721.5-સંમેય સંખ્યાના ગુણાકાર', 'M721.5-સંમેય સંખ્યાની વ્યસ્ત સંખ્યા', 'M721.5-સંમેય સંખ્યાના ભાગાકાર', 'M721.4-સ્વાધ્યાય 8.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['સંમેય સંખ્યાઓ એટલે શું?', 'M721.4-સમાન સંમેય સંખ્યાઓ', 'M721.1-ધન અને ઋણ સંમેય સંખ્યાઓ', 'M721.2-સંમેય સંખ્યાનું સંખ્યારેખા પર નિરૂપણ', 'M721.3-પ્રમાણિત સ્વરૂપમાં સંમેય સંખ્યા', 'M721.4-સંમેય સંખ્યાની સરખામણી', 'M721.4-બે સંમેય સંખ્યાની વચ્ચેની સંમેય સંખ્યા', 'સ્વાધ્યાય 8.1', 'M721.5-સંમેય સંખ્યાનો સરવાળો', 'M721.5-સંમેય સંખ્યાની વિરોધી સંખ્યા', 'M721.5-સંમેય સંખ્યાની બાદબાકી', 'M721.5-સંમેય સંખ્યાના ગુણાકાર', 'M721.5-સંમેય સંખ્યાની વ્યસ્ત સંખ્યા', 'M721.5-સંમેય સંખ્યાના ભાગાકાર', 'M721.4-સ્વાધ્યાય 8.2'],
+                C: ['સંમેય સંખ્યાઓ એટલે શું?', 'M721.4-સમાન સંમેય સંખ્યાઓ', 'M721.1-ધન અને ઋણ સંમેય સંખ્યાઓ', 'M721.2-સંમેય સંખ્યાનું સંખ્યારેખા પર નિરૂપણ', 'M721.3-પ્રમાણિત સ્વરૂપમાં સંમેય સંખ્યા', 'M721.4-સંમેય સંખ્યાની સરખામણી', 'M721.4-બે સંમેય સંખ્યાની વચ્ચેની સંમેય સંખ્યા', 'સ્વાધ્યાય 8.1', 'M721.5-સંમેય સંખ્યાનો સરવાળો', 'M721.5-સંમેય સંખ્યાની વિરોધી સંખ્યા', 'M721.5-સંમેય સંખ્યાની બાદબાકી', 'M721.5-સંમેય સંખ્યાના ગુણાકાર', 'M721.5-સંમેય સંખ્યાની વ્યસ્ત સંખ્યા', 'M721.5-સંમેય સંખ્યાના ભાગાકાર', 'M721.4-સ્વાધ્યાય 8.2',],
+            }
+        },
+        પરિમિતિ_અને_ક્ષેત્રફળ: {
+            subcategories: {
+                A: ['M725.1-સમાંતરબાજુ ચતુષ્કોણનું ક્ષેત્રફળ', 'M725.2-ત્રિકોણનું ક્ષેત્રફળ', 'M725.1,2-સ્વાધ્યાય 9.1', 'M725.3-વર્તુળનો પરિઘ', 'M725.4-વર્તુળનું ક્ષેત્રફળ', 'M725.3,4-સ્વાધ્યાય 9.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M725.1-સમાંતરબાજુ ચતુષ્કોણનું ક્ષેત્રફળ', 'M725.2-ત્રિકોણનું ક્ષેત્રફળ', 'M725.1,2-સ્વાધ્યાય 9.1', 'M725.3-વર્તુળનો પરિઘ', 'M725.4-વર્તુળનું ક્ષેત્રફળ', 'M725.3,4-સ્વાધ્યાય 9.2'],
+                C: ['M725.1-સમાંતરબાજુ ચતુષ્કોણનું ક્ષેત્રફળ', 'M725.2-ત્રિકોણનું ક્ષેત્રફળ', 'M725.1,2-સ્વાધ્યાય 9.1', 'M725.3-વર્તુળનો પરિઘ', 'M725.4-વર્તુળનું ક્ષેત્રફળ', 'M725.3,4-સ્વાધ્યાય 9.2'],
+            }
+        },
+        બીજગણિતીય_પદાવલિ: {
+            subcategories: {
+                A: ['M707.1-પદાવલીના પદ,સહગુણક,અવયવ ', 'M707.1-ઉદાહરણ 1 અને 2', 'M707.1-સજાતીય અને વિજાતીય પદ', 'M707.1-એકપદી,દ્રીપદી,ત્રિપદી,બહુપદી', 'M707.1-સ્વાધ્યાય 10.1', 'M707.3-આપેલ પદાવલીની કિંમત શોધવી', 'M707.3-ઉદાહરણ 4,5 અને 6', 'M707.3-સ્વાધ્યાય 10.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M707.1-પદાવલીના પદ,સહગુણક,અવયવ ', 'M707.1-ઉદાહરણ 1 અને 2', 'M707.1-સજાતીય અને વિજાતીય પદ', 'M707.1-એકપદી,દ્રીપદી,ત્રિપદી,બહુપદી', 'M707.1-સ્વાધ્યાય 10.1', 'M707.3-આપેલ પદાવલીની કિંમત શોધવી', 'M707.3-ઉદાહરણ 4,5 અને 6', 'M707.3-સ્વાધ્યાય 10.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M707.1-પદાવલીના પદ,સહગુણક,અવયવ ', 'M707.1-ઉદાહરણ 1 અને 2', 'M707.1-સજાતીય અને વિજાતીય પદ', 'M707.1-એકપદી,દ્રીપદી,ત્રિપદી,બહુપદી', 'M707.1-સ્વાધ્યાય 10.1', 'M707.3-આપેલ પદાવલીની કિંમત શોધવી', 'M707.3-ઉદાહરણ 4,5 અને 6', 'M707.3-સ્વાધ્યાય 10.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        ઘાત_અને_ઘાતાંક: {
+            subcategories: {
+                A: ['M705.2-ઘાતાંકની સમજૂતી(ઉદાહરણ 1 થી 6)', 'M705.1,2-સ્વાધ્યાય 11.1', 'M705.4-સમાન આધારની ઘાતાંકનો નિયમ', 'M705.4-ઘાતની ઘાત', 'M705.4-સરખા ઘાતાંકના ઘાતનો ગુણાકાર', 'M705.4-ઘાતાંક શૂન્ય સાથેની સંખ્યા', 'M705.4-ઘાતાંકના નિયમોનો ઉપયોગ થતો હોય તેવા ઉદાહરણ', 'M705.4-ઉદાહરણ 8 થી 12', 'M705.4-સ્વાધ્યાય 11.2', 'M705.6-દશાંશ પધ્ધતિની સમજૂતી', 'M705.6-વિશાળ સંખ્યાને પ્રમાણભૂત સંખ્યાના સ્વરૂપમાં દર્શાવવી', 'M705.6-સ્વાધ્યાય 11.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M705.2-ઘાતાંકની સમજૂતી(ઉદાહરણ 1 થી 6)', 'M705.1,2-સ્વાધ્યાય 11.1', 'M705.4-સમાન આધારની ઘાતાંકનો નિયમ', 'M705.4-ઘાતની ઘાત', 'M705.4-સરખા ઘાતાંકના ઘાતનો ગુણાકાર', 'M705.4-ઘાતાંક શૂન્ય સાથેની સંખ્યા', 'M705.4-ઘાતાંકના નિયમોનો ઉપયોગ થતો હોય તેવા ઉદાહરણ', 'M705.4-ઉદાહરણ 8 થી 12', 'M705.4-સ્વાધ્યાય 11.2', 'M705.6-દશાંશ પધ્ધતિની સમજૂતી', 'M705.6-વિશાળ સંખ્યાને પ્રમાણભૂત સંખ્યાના સ્વરૂપમાં દર્શાવવી', 'M705.6-સ્વાધ્યાય 11.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M705.2-ઘાતાંકની સમજૂતી(ઉદાહરણ 1 થી 6)', 'M705.1,2-સ્વાધ્યાય 11.1', 'M705.4-સમાન આધારની ઘાતાંકનો નિયમ', 'M705.4-ઘાતની ઘાત', 'M705.4-સરખા ઘાતાંકના ઘાતનો ગુણાકાર', 'M705.4-ઘાતાંક શૂન્ય સાથેની સંખ્યા', 'M705.4-ઘાતાંકના નિયમોનો ઉપયોગ થતો હોય તેવા ઉદાહરણ', 'M705.4-ઉદાહરણ 8 થી 12', 'M705.4-સ્વાધ્યાય 11.2', 'M705.6-દશાંશ પધ્ધતિની સમજૂતી', 'M705.6-વિશાળ સંખ્યાને પ્રમાણભૂત સંખ્યાના સ્વરૂપમાં દર્શાવવી', 'M705.6-સ્વાધ્યાય 11.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        સંમિતિ: {
+            subcategories: {
+                A: ['M722.1-સંમિતિ રેખાની સમજૂતી', 'M722.1-નિયમિત બહુકોણ આકૃતિ માટેની સંમિતિ', 'M722.1-સ્વાધ્યાય 12.1', 'M722.2-પરિભ્રમણિય સંમિતિ', 'M722.2-સ્વાધ્યાય 12.2', 'M722.3-રૈખિક સંમિતિ અને પરિભ્રમણિય સંમિતિની સમજૂતી', 'M722.3-સ્વાધ્યાય 12.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M722.1-સંમિતિ રેખાની સમજૂતી', 'M722.1-નિયમિત બહુકોણ આકૃતિ માટેની સંમિતિ', 'M722.1-સ્વાધ્યાય 12.1', 'M722.2-પરિભ્રમણિય સંમિતિ', 'M722.2-સ્વાધ્યાય 12.2', 'M722.3-રૈખિક સંમિતિ અને પરિભ્રમણિય સંમિતિની સમજૂતી', 'M722.3-સ્વાધ્યાય 12.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M722.1-સંમિતિ રેખાની સમજૂતી', 'M722.1-નિયમિત બહુકોણ આકૃતિ માટેની સંમિતિ', 'M722.1-સ્વાધ્યાય 12.1', 'M722.2-પરિભ્રમણિય સંમિતિ', 'M722.2-સ્વાધ્યાય 12.2', 'M722.3-રૈખિક સંમિતિ અને પરિભ્રમણિય સંમિતિની સમજૂતી', 'M722.3-સ્વાધ્યાય 12.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        ઘનઆકારોનું_પ્રત્યક્ષીકરણ: {
+            subcategories: {
+                A: ['M723.1-સમતલિય આકારો અને ઘનાકારોના ફલક,ધાર અને શિરોબિંદુ', 'M723.1-સ્વાધ્યાય 13.1', 'M723.3-3D આકારો બનાવવાની નેટ', 'M723.3-સમતલ પર ઘન આકારો દોરવા', 'M723.3-સ્વાધ્યાય 13.2 ', 'M723.5-ઘનના જુદા જુદા ભાગોને જોવા', 'M723.5-સ્વાધ્યાય 13.3', 'M723.6-પડછાયાની રમત', 'M723.6-સ્વાધ્યાય 13.4', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M723.1-સમતલિય આકારો અને ઘનાકારોના ફલક,ધાર અને શિરોબિંદુ', 'M723.1-સ્વાધ્યાય 13.1', 'M723.3-3D આકારો બનાવવાની નેટ', 'M723.3-સમતલ પર ઘન આકારો દોરવા', 'M723.3-સ્વાધ્યાય 13.2 ', 'M723.5-ઘનના જુદા જુદા ભાગોને જોવા', 'M723.5-સ્વાધ્યાય 13.3', 'M723.6-પડછાયાની રમત', 'M723.6-સ્વાધ્યાય 13.4', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M723.1-સમતલિય આકારો અને ઘનાકારોના ફલક,ધાર અને શિરોબિંદુ', 'M723.1-સ્વાધ્યાય 13.1', 'M723.3-3D આકારો બનાવવાની નેટ', 'M723.3-સમતલ પર ઘન આકારો દોરવા', 'M723.3-સ્વાધ્યાય 13.2 ', 'M723.5-ઘનના જુદા જુદા ભાગોને જોવા', 'M723.5-સ્વાધ્યાય 13.3', 'M723.6-પડછાયાની રમત', 'M723.6-સ્વાધ્યાય 13.4', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        }
+    },
+    ધો_7_વિજ્ઞાન: {
+        પ્રાણીઓ_અને_વનસ્પતિમાં_વહન: {
+            subcategories: {
+                A: ['SC704-પરિવહન તંત્ર(રુધિર)', 'SC706-પરિવહન તંત્ર(રુધિરવાહિની)', 'SC709-પરિવહન તંત્ર(હ્રદય)', 'SC708-હ્રદય ના ધબકારા', 'SC709-પ્રાણીઓમાં ઉત્સર્જન', 'SC706-પાણી અને ખનીજ તત્વોનું વહન', 'SC709-બાસ્પોત્સર્જન', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ',],
+                B: ['SC704-પરિવહન તંત્ર(રુધિર)', 'SC706-પરિવહન તંત્ર(રુધિરવાહિની)', 'SC709-પરિવહન તંત્ર(હ્રદય)', 'SC708-હ્રદય ના ધબકારા', 'SC709-પ્રાણીઓમાં ઉત્સર્જન', 'SC706-પાણી અને ખનીજ તત્વોનું વહન', 'SC709-બાસ્પોત્સર્જન', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ',],
+                C: ['SC704-પરિવહન તંત્ર(રુધિર)', 'SC706-પરિવહન તંત્ર(રુધિરવાહિની)', 'SC709-પરિવહન તંત્ર(હ્રદય)', 'SC708-હ્રદય ના ધબકારા', 'SC709-પ્રાણીઓમાં ઉત્સર્જન', 'SC706-પાણી અને ખનીજ તત્વોનું વહન', 'SC709-બાસ્પોત્સર્જન', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ',],
+            }
+        },
+        વનસ્પતિમાં_પ્રજનન: {
+            subcategories: {
+                A: ['SC702-પ્રજનનના પ્રકારો', 'SC702-અલિંગી પ્રજનન(વાનસ્પતિક પ્રજનન)', 'SC702-અલિંગી પ્રજનન(કલિકા સર્જન)', 'SC702-અલિંગી પ્રજનન(અવખંડન)', 'SC702-અલિંગી પ્રજનન(બીજાણું સર્જન)', 'SC702-લિંગી પ્રજનન', 'SC702-પરાગનયન', 'SC702-ફલન', 'SC706-ફળ અને બીજ નિર્માણ', 'SC704-બીજ ફેલાવો', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC702-પ્રજનનના પ્રકારો', 'SC702-અલિંગી પ્રજનન(વાનસ્પતિક પ્રજનન)', 'SC702-અલિંગી પ્રજનન(કલિકા સર્જન)', 'SC702-અલિંગી પ્રજનન(અવખંડન)', 'SC702-અલિંગી પ્રજનન(બીજાણું સર્જન)', 'SC702-લિંગી પ્રજનન', 'SC702-પરાગનયન', 'SC702-ફલન', 'SC706-ફળ અને બીજ નિર્માણ', 'SC704-બીજ ફેલાવો', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC702-પ્રજનનના પ્રકારો', 'SC702-અલિંગી પ્રજનન(વાનસ્પતિક પ્રજનન)', 'SC702-અલિંગી પ્રજનન(કલિકા સર્જન)', 'SC702-અલિંગી પ્રજનન(અવખંડન)', 'SC702-અલિંગી પ્રજનન(બીજાણું સર્જન)', 'SC702-લિંગી પ્રજનન', 'SC702-પરાગનયન', 'SC702-ફલન', 'SC706-ફળ અને બીજ નિર્માણ', 'SC704-બીજ ફેલાવો', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        ગતિ_અને_સમય: {
+            subcategories: {
+                A: ['SC706-ધીમી કે ઝડપી', 'SC706-ઝડપ', 'SC708-સમયનું માપન', 'SC708-સમય તથા ઝડપના એકમો', 'SC708-ઝડપનું માપન', 'SC710-અંતર સમયનો આલેખ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC706-ધીમી કે ઝડપી', 'SC706-ઝડપ', 'SC708-સમયનું માપન', 'SC708-સમય તથા ઝડપના એકમો', 'SC708-ઝડપનું માપન', 'SC710-અંતર સમયનો આલેખ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC706-ધીમી કે ઝડપી', 'SC706-ઝડપ', 'SC708-સમયનું માપન', 'SC708-સમય તથા ઝડપના એકમો', 'SC708-ઝડપનું માપન', 'SC710-અંતર સમયનો આલેખ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        વિદ્યુતપ્રવાહ_અને_તેની_અસરો: {
+            subcategories: {
+                A: ['SC709-વિદ્યુતના ઘટકોની સંજ્ઞા', 'SC713-વિદ્યુતપ્રવાહની ઉષ્મીય અસર', 'SC706-વિદ્યુતપ્રવાહની ચુંબકીય અસર', 'SC711-વિદ્યુત ચુંબક', 'SC713-વિદ્યુત ઘંટડી', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC709-વિદ્યુતના ઘટકોની સંજ્ઞા', 'SC713-વિદ્યુતપ્રવાહની ઉષ્મીય અસર', 'SC706-વિદ્યુતપ્રવાહની ચુંબકીય અસર', 'SC711-વિદ્યુત ચુંબક', 'SC713-વિદ્યુત ઘંટડી', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC709-વિદ્યુતના ઘટકોની સંજ્ઞા', 'SC713-વિદ્યુતપ્રવાહની ઉષ્મીય અસર', 'SC706-વિદ્યુતપ્રવાહની ચુંબકીય અસર', 'SC711-વિદ્યુત ચુંબક', 'SC713-વિદ્યુત ઘંટડી', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        પ્રકાશ: {
+            subcategories: {
+                A: ['SC704-પ્રકાશ સીધી રેખામાં ગતિ કરે છે', 'SC706-પ્રકાશનું પરાવર્તન', 'SC706-જમણી બાજુ કે ડાબી બાજુ', 'SC706-ગોલિય અરીસા સામેની રમત', 'SC706-લેન્સ વડે રચાતા પ્રતિબિંબો', 'SC704-સસૂર્યપ્રકાશ-સફેદ કે રંગીન', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC704-પ્રકાશ સીધી રેખામાં ગતિ કરે છે', 'SC706-પ્રકાશનું પરાવર્તન', 'SC706-જમણી બાજુ કે ડાબી બાજુ', 'SC706-ગોલિય અરીસા સામેની રમત', 'SC706-લેન્સ વડે રચાતા પ્રતિબિંબો', 'SC704-સસૂર્યપ્રકાશ-સફેદ કે રંગીન', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC704-પ્રકાશ સીધી રેખામાં ગતિ કરે છે', 'SC706-પ્રકાશનું પરાવર્તન', 'SC706-જમણી બાજુ કે ડાબી બાજુ', 'SC706-ગોલિય અરીસા સામેની રમત', 'SC706-લેન્સ વડે રચાતા પ્રતિબિંબો', 'SC704-સસૂર્યપ્રકાશ-સફેદ કે રંગીન', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        જંગલો_આપણી_જીવાદોરી: {
+            subcategories: {
+                A: ['SC714-જંગલની એક મુલાકાત', 'SC714-વસવાટ તરીકે જંગલ', 'SC714-કેટલાક જંગલી પ્રાણીઓ', 'SC714-કેટલાક જંગલી વૃક્ષો', 'SC714-જંગલની પેદાશો', 'SC706-જંગલમાં છત્રછાયા અને વાનસ્પતિક સમૂહો', 'SC705-જંગલમાં વનસ્પતિ,ભૂમિ અને વિઘટકોનો આંતરસબંધો', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC714-જંગલની એક મુલાકાત', 'SC714-વસવાટ તરીકે જંગલ', 'SC714-કેટલાક જંગલી પ્રાણીઓ', 'SC714-કેટલાક જંગલી વૃક્ષો', 'SC714-જંગલની પેદાશો', 'SC706-જંગલમાં છત્રછાયા અને વાનસ્પતિક સમૂહો', 'SC705-જંગલમાં વનસ્પતિ,ભૂમિ અને વિઘટકોનો આંતરસબંધો', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC714-જંગલની એક મુલાકાત', 'SC714-વસવાટ તરીકે જંગલ', 'SC714-કેટલાક જંગલી પ્રાણીઓ', 'SC714-કેટલાક જંગલી વૃક્ષો', 'SC714-જંગલની પેદાશો', 'SC706-જંગલમાં છત્રછાયા અને વાનસ્પતિક સમૂહો', 'SC705-જંગલમાં વનસ્પતિ,ભૂમિ અને વિઘટકોનો આંતરસબંધો', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        દૂષિત_પાણીની_વાર્તા: {
+            subcategories: {
+                A: ['SC716-પાણી આપણી જીવાદોરી', 'SC714-સુએઝ શું છે?', 'SC714-પાણી તાજગીસભર બનાવે છે-એક મહત્વપૂર્ણ પ્રવાસ', 'SC714-પ્રદૂષિત પાણીની સારવાર', 'SC714-વેસ્ટ વોટર ટ્રીટમેન્ટ પ્લાન્ટ', 'SC714-એક જાગૃત નાગરિક બનો', 'SC714-સારી ગૃહવ્યવસ્થા માટેનો મહાવરો', 'SC713-સ્વચ્છતા અને રોગો', 'SC713-સુએઝ નિકાલ માટેની વૈકલ્પિક વ્યવસ્થા', 'SC713-જાહેર જગ્યા પર સ્વચ્છતા', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC716-પાણી આપણી જીવાદોરી', 'SC714-સુએઝ શું છે?', 'SC714-પાણી તાજગીસભર બનાવે છે-એક મહત્વપૂર્ણ પ્રવાસ', 'SC714-પ્રદૂષિત પાણીની સારવાર', 'SC714-વેસ્ટ વોટર ટ્રીટમેન્ટ પ્લાન્ટ', 'SC714-એક જાગૃત નાગરિક બનો', 'SC714-સારી ગૃહવ્યવસ્થા માટેનો મહાવરો', 'SC713-સ્વચ્છતા અને રોગો', 'SC713-સુએઝ નિકાલ માટેની વૈકલ્પિક વ્યવસ્થા', 'SC713-જાહેર જગ્યા પર સ્વચ્છતા', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC716-પાણી આપણી જીવાદોરી', 'SC714-સુએઝ શું છે?', 'SC714-પાણી તાજગીસભર બનાવે છે-એક મહત્વપૂર્ણ પ્રવાસ', 'SC714-પ્રદૂષિત પાણીની સારવાર', 'SC714-વેસ્ટ વોટર ટ્રીટમેન્ટ પ્લાન્ટ', 'SC714-એક જાગૃત નાગરિક બનો', 'SC714-સારી ગૃહવ્યવસ્થા માટેનો મહાવરો', 'SC713-સ્વચ્છતા અને રોગો', 'SC713-સુએઝ નિકાલ માટેની વૈકલ્પિક વ્યવસ્થા', 'SC713-જાહેર જગ્યા પર સ્વચ્છતા', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        }
+        
+    },
+    ધો_8_ગણિત: {
+        રાશિઓની_તુલના: {
+            subcategories: {
+                A: ['M809.3-ગુણોતરનું ટકાવારીમાં પુનરાવર્તન', 'M809.3-ઉદાહરણ-1', 'M809.3-સ્વાધ્યાય 7.1', 'M809.3-વળતર શોધવાની રીત', 'M809.3-ઉદાહરણ-2,3', 'M809.3-GST આધારિત પ્રશ્નોની સમજૂતી', 'M809.3-ઉદાહરણ-4,5 અને 6', 'M809.3-સ્વાધ્યાય 7.2', 'M809.1,2-ચક્રવૃદ્ધિ વ્યાજની ગણતરી', 'M809.3-ઉદાહરણ-7', 'M809.1,2-ઉદાહરણ-8', 'M809.1,2-ઉદાહરણ-9,10', 'M809.1,2-સ્વાધ્યાય 7.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M809.3-ગુણોતરનું ટકાવારીમાં પુનરાવર્તન', 'M809.3-ઉદાહરણ-1', 'M809.3-સ્વાધ્યાય 7.1', 'M809.3-વળતર શોધવાની રીત', 'M809.3-ઉદાહરણ-2,3', 'M809.3-GST આધારિત પ્રશ્નોની સમજૂતી', 'M809.3-ઉદાહરણ-4,5 અને 6', 'M809.3-સ્વાધ્યાય 7.2', 'M809.1,2-ચક્રવૃદ્ધિ વ્યાજની ગણતરી', 'M809.3-ઉદાહરણ-7', 'M809.1,2-ઉદાહરણ-8', 'M809.1,2-ઉદાહરણ-9,10', 'M809.1,2-સ્વાધ્યાય 7.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M809.3-ગુણોતરનું ટકાવારીમાં પુનરાવર્તન', 'M809.3-ઉદાહરણ-1', 'M809.3-સ્વાધ્યાય 7.1', 'M809.3-વળતર શોધવાની રીત', 'M809.3-ઉદાહરણ-2,3', 'M809.3-GST આધારિત પ્રશ્નોની સમજૂતી', 'M809.3-ઉદાહરણ-4,5 અને 6', 'M809.3-સ્વાધ્યાય 7.2', 'M809.1,2-ચક્રવૃદ્ધિ વ્યાજની ગણતરી', 'M809.3-ઉદાહરણ-7', 'M809.1,2-ઉદાહરણ-8', 'M809.1,2-ઉદાહરણ-9,10', 'M809.1,2-સ્વાધ્યાય 7.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        બૈજિક_પદાવલિ_અને_નિત્યસમ: {
+            subcategories: {
+                A: ['M807.2-બૈજિક પદાવલીના સરવાળા(ઉદાહરણ-1)', 'M807.2-બૈજિક પદાવલીની બાદબાકી(ઉદાહરણ-2)', 'M807.2-સ્વાધ્યાય 8.1', 'M807.2-એકપદીનો એકપદી સાથેનો ગુણાકાર(ઉદાહરણ-3,4)', 'M807.2-સ્વાધ્યાય 8.2', 'M807.2-એકપદીનો દરિવપદી સાથેનો ગુણાકાર', 'M807.2-એકપદીનો ત્રિપદી સાથેનો ગુણાકાર', 'M807.2-ઉદાહરણ-5,6,7 ', 'M807.2-સ્વાધ્યાય 8.3', 'M807.2-દ્રીપદીનો દ્રીપદી સાથેનો ગુણાકાર', 'M807.2-દ્રીપદીનો ત્રિપદી સાથેનો ગુણાકાર', 'M807.2-ઉદાહરણ-8,9,10', 'M807.2-સ્વાધ્યાય 8.4', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M807.2-બૈજિક પદાવલીના સરવાળા(ઉદાહરણ-1)', 'M807.2-બૈજિક પદાવલીની બાદબાકી(ઉદાહરણ-2)', 'M807.2-સ્વાધ્યાય 8.1', 'M807.2-એકપદીનો એકપદી સાથેનો ગુણાકાર(ઉદાહરણ-3,4)', 'M807.2-સ્વાધ્યાય 8.2', 'M807.2-એકપદીનો દરિવપદી સાથેનો ગુણાકાર', 'M807.2-એકપદીનો ત્રિપદી સાથેનો ગુણાકાર', 'M807.2-ઉદાહરણ-5,6,7 ', 'M807.2-સ્વાધ્યાય 8.3', 'M807.2-દ્રીપદીનો દ્રીપદી સાથેનો ગુણાકાર', 'M807.2-દ્રીપદીનો ત્રિપદી સાથેનો ગુણાકાર', 'M807.2-ઉદાહરણ-8,9,10', 'M807.2-સ્વાધ્યાય 8.4', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M807.2-બૈજિક પદાવલીના સરવાળા(ઉદાહરણ-1)', 'M807.2-બૈજિક પદાવલીની બાદબાકી(ઉદાહરણ-2)', 'M807.2-સ્વાધ્યાય 8.1', 'M807.2-એકપદીનો એકપદી સાથેનો ગુણાકાર(ઉદાહરણ-3,4)', 'M807.2-સ્વાધ્યાય 8.2', 'M807.2-એકપદીનો દરિવપદી સાથેનો ગુણાકાર', 'M807.2-એકપદીનો ત્રિપદી સાથેનો ગુણાકાર', 'M807.2-ઉદાહરણ-5,6,7 ', 'M807.2-સ્વાધ્યાય 8.3', 'M807.2-દ્રીપદીનો દ્રીપદી સાથેનો ગુણાકાર', 'M807.2-દ્રીપદીનો ત્રિપદી સાથેનો ગુણાકાર', 'M807.2-ઉદાહરણ-8,9,10', 'M807.2-સ્વાધ્યાય 8.4', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        માપન: {
+            subcategories: {
+                A: ['M818.3-બહુકોણનું ક્ષેત્રફળ(ઉદાહરણ-1,2,3)', 'M816.3-સ્વાધ્યાય 9.1', 'M816.3-ઘન આકારોનો પરિચય', 'M818.1,2-ઘન,લંબઘનનું પૃષ્ઠફળ', 'M818.1,2-ઉદાહરણ-4,5', 'M818.3-નળાકારનું પૃષ્ઠફળ', 'M816.3-ઉદાહરણ-6,7', 'M818.3-સ્વાધ્યાય 9.2', 'M818.4,5-ઘન,લંબઘનનું ઘનફળ', 'M818.4,5-ઉદાહરણ-8,9', 'M818.6-નળાકારનું ઘનફળ', 'M818.6-ઉદાહરણ-10,11', 'M818.6-સ્વાધ્યાય 9.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M818.3-બહુકોણનું ક્ષેત્રફળ(ઉદાહરણ-1,2,3)', 'M816.3-સ્વાધ્યાય 9.1', 'M816.3-ઘન આકારોનો પરિચય', 'M818.1,2-ઘન,લંબઘનનું પૃષ્ઠફળ', 'M818.1,2-ઉદાહરણ-4,5', 'M818.3-નળાકારનું પૃષ્ઠફળ', 'M816.3-ઉદાહરણ-6,7', 'M818.3-સ્વાધ્યાય 9.2', 'M818.4,5-ઘન,લંબઘનનું ઘનફળ', 'M818.4,5-ઉદાહરણ-8,9', 'M818.6-નળાકારનું ઘનફળ', 'M818.6-ઉદાહરણ-10,11', 'M818.6-સ્વાધ્યાય 9.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M818.3-બહુકોણનું ક્ષેત્રફળ(ઉદાહરણ-1,2,3)', 'M816.3-સ્વાધ્યાય 9.1', 'M816.3-ઘન આકારોનો પરિચય', 'M818.1,2-ઘન,લંબઘનનું પૃષ્ઠફળ', 'M818.1,2-ઉદાહરણ-4,5', 'M818.3-નળાકારનું પૃષ્ઠફળ', 'M816.3-ઉદાહરણ-6,7', 'M818.3-સ્વાધ્યાય 9.2', 'M818.4,5-ઘન,લંબઘનનું ઘનફળ', 'M818.4,5-ઉદાહરણ-8,9', 'M818.6-નળાકારનું ઘનફળ', 'M818.6-ઉદાહરણ-10,11', 'M818.6-સ્વાધ્યાય 9.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        ઘાત_અને_ઘાતાંક: {
+            subcategories: {
+                A: ['M805.1-ઋણ પૂર્ણાંક ઘાતાંકની સમજૂતી', 'M805.1-ઉદાહરણ-1', 'M805.2-ઘાતાંકના નિયમોની સમજૂતી', 'M805.1-સંખ્યાનું સાદુરુપ આપી ઘન ઘાત સ્વરૂપમાં લખવું', 'M805.2-આપેલ રકમની કિંમત શોધવી', 'M805.2-ઉદાહરણ-1 થી 7' ,'M805.2-સ્વાધ્યાય 10.1', 'M805.3-સંખ્યાને પ્રમાણિત સ્વરૂપમાં દર્શાવવા ઘાતાંકનો ઉપયોગ', 'M805.3-બહુજ મોટી અને બહુજ નાની સંખ્યાઓની સરખામણી', 'M805.3-ઉદાહરણ-9,10', 'M805.3-સ્વાધ્યાય 10.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M805.1-ઋણ પૂર્ણાંક ઘાતાંકની સમજૂતી', 'M805.1-ઉદાહરણ-1', 'M805.2-ઘાતાંકના નિયમોની સમજૂતી', 'M805.1-સંખ્યાનું સાદુરુપ આપી ઘન ઘાત સ્વરૂપમાં લખવું', 'M805.2-આપેલ રકમની કિંમત શોધવી', 'M805.2-ઉદાહરણ-1 થી 7' ,'M805.2-સ્વાધ્યાય 10.1', 'M805.3-સંખ્યાને પ્રમાણિત સ્વરૂપમાં દર્શાવવા ઘાતાંકનો ઉપયોગ', 'M805.3-બહુજ મોટી અને બહુજ નાની સંખ્યાઓની સરખામણી', 'M805.3-ઉદાહરણ-9,10', 'M805.3-સ્વાધ્યાય 10.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M805.1-ઋણ પૂર્ણાંક ઘાતાંકની સમજૂતી', 'M805.1-ઉદાહરણ-1', 'M805.2-ઘાતાંકના નિયમોની સમજૂતી', 'M805.1-સંખ્યાનું સાદુરુપ આપી ઘન ઘાત સ્વરૂપમાં લખવું', 'M805.2-આપેલ રકમની કિંમત શોધવી', 'M805.2-ઉદાહરણ-1 થી 7' ,'M805.2-સ્વાધ્યાય 10.1', 'M805.3-સંખ્યાને પ્રમાણિત સ્વરૂપમાં દર્શાવવા ઘાતાંકનો ઉપયોગ', 'M805.3-બહુજ મોટી અને બહુજ નાની સંખ્યાઓની સરખામણી', 'M805.3-ઉદાહરણ-9,10', 'M805.3-સ્વાધ્યાય 10.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        સમપ્રમાણ_અને_વ્યસ્તપ્રમાણ: {
+            subcategories: {
+                A: ['M810-સમપ્રમાણની સમજૂતી', 'M810-ઉદાહરણ-1 થી 5', 'M810-સ્વાધ્યાય 11.1', 'M810-વ્યસ્તપ્રમાણની સમજૂતી', 'M810-ઉદાહરણ-6 થી 8', 'M810-સ્વાધ્યાય 11.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M810-સમપ્રમાણની સમજૂતી', 'M810-ઉદાહરણ-1 થી 5', 'M810-સ્વાધ્યાય 11.1', 'M810-વ્યસ્તપ્રમાણની સમજૂતી', 'M810-ઉદાહરણ-6 થી 8', 'M810-સ્વાધ્યાય 11.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M810-સમપ્રમાણની સમજૂતી', 'M810-ઉદાહરણ-1 થી 5', 'M810-સ્વાધ્યાય 11.1', 'M810-વ્યસ્તપ્રમાણની સમજૂતી', 'M810-ઉદાહરણ-6 થી 8', 'M810-સ્વાધ્યાય 11.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        અવયવીકરણ: {
+            subcategories: {
+                A: ['M823.1-અવયવીકરણ એટલે શું?', 'M823.1-સામાન્ય અવયવોની રીત', 'M823.1-ઉદાહરણ-1,2', 'M823.2-પદોની પુનઃગોઠવણી દ્વારા અવયવીકરણ', 'M823.1,2-સ્વાધ્યાય 12.1', 'M808.1-(a+b)²=a²+2ab+b²,(a-b)²=a²-2ab+b² નિત્યસમની સમજૂતી', 'M808.1-(a+b)(a-b)=a²-b² ની સમજૂતી', 'M808.1-(x+a)(x+b)=x²+(a+b)x+ab નિત્યસમની સમજૂતી', 'M808.1-સ્વાધ્યાય 12.2', 'M823.5-એકપદી વડે બીજી એકપદીનો ભાગાકાર', 'M823.5-એકપદી વડે બહુપદીનો ભાગાકાર', 'M823.5-બહુપદી વડે બહુપદીનો ભાગાકાર', 'M823.5-સ્વાધ્યાય 12.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M823.1-અવયવીકરણ એટલે શું?', 'M823.1-સામાન્ય અવયવોની રીત', 'M823.1-ઉદાહરણ-1,2', 'M823.2-પદોની પુનઃગોઠવણી દ્વારા અવયવીકરણ', 'M823.1,2-સ્વાધ્યાય 12.1', 'M808.1-(a+b)²=a²+2ab+b²,(a-b)²=a²-2ab+b² નિત્યસમની સમજૂતી', 'M808.1-(a+b)(a-b)=a²-b² ની સમજૂતી', 'M808.1-(x+a)(x+b)=x²+(a+b)x+ab નિત્યસમની સમજૂતી', 'M808.1-સ્વાધ્યાય 12.2', 'M823.5-એકપદી વડે બીજી એકપદીનો ભાગાકાર', 'M823.5-એકપદી વડે બહુપદીનો ભાગાકાર', 'M823.5-બહુપદી વડે બહુપદીનો ભાગાકાર', 'M823.5-સ્વાધ્યાય 12.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M823.1-અવયવીકરણ એટલે શું?', 'M823.1-સામાન્ય અવયવોની રીત', 'M823.1-ઉદાહરણ-1,2', 'M823.2-પદોની પુનઃગોઠવણી દ્વારા અવયવીકરણ', 'M823.1,2-સ્વાધ્યાય 12.1', 'M808.1-(a+b)²=a²+2ab+b²,(a-b)²=a²-2ab+b² નિત્યસમની સમજૂતી', 'M808.1-(a+b)(a-b)=a²-b² ની સમજૂતી', 'M808.1-(x+a)(x+b)=x²+(a+b)x+ab નિત્યસમની સમજૂતી', 'M808.1-સ્વાધ્યાય 12.2', 'M823.5-એકપદી વડે બીજી એકપદીનો ભાગાકાર', 'M823.5-એકપદી વડે બહુપદીનો ભાગાકાર', 'M823.5-બહુપદી વડે બહુપદીનો ભાગાકાર', 'M823.5-સ્વાધ્યાય 12.3', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        આલેખ_પરિચય: {
+            subcategories: {
+                A: ['M824.4-રેખીય આલેખની સમજૂતી(ઉદાહરણ-1,2)', 'M824.4-સ્વાધ્યાય 13.1', 'M824.3-આલેખના કેટલાક ઉપયોગો', 'M824.3-ઉદાહરણ-3,4,5', 'M824.3-સ્વાધ્યાય 13.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['M824.4-રેખીય આલેખની સમજૂતી(ઉદાહરણ-1,2)', 'M824.4-સ્વાધ્યાય 13.1', 'M824.3-આલેખના કેટલાક ઉપયોગો', 'M824.3-ઉદાહરણ-3,4,5', 'M824.3-સ્વાધ્યાય 13.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['M824.4-રેખીય આલેખની સમજૂતી(ઉદાહરણ-1,2)', 'M824.4-સ્વાધ્યાય 13.1', 'M824.3-આલેખના કેટલાક ઉપયોગો', 'M824.3-ઉદાહરણ-3,4,5', 'M824.3-સ્વાધ્યાય 13.2', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        }
+    },
+    ધો_8_વિજ્ઞાન: {
+        કિશોરાવસ્થા_તરફ: {
+            subcategories: {
+                A: ['SC805-કિશોરાવસ્થા તેમજ તરુણાવસ્થા', 'SC804-તરુણાવસ્થામાં થતાં ફેરફાર-ઊંચાઈમાં વધારો,શારીરિક આકારમાં બદલાવ,અવાજમાં બદલાવ', 'SC810-પ્રજનન અંગોનો વિકાસ', 'SC815-માનસિક,બૌધ્ધિક તેમજ સંવેદનાત્મક પરિપક્વતા પ્રાપ્ત થવી', 'SC801-ગૌણ જાતીય લક્ષણો', 'SC810-મનુષ્યમાં પ્રજનન કાળની અવધિ', 'SC805-બાળકનું લિંગનિશ્ચયન', 'SC810-લિંગી અંતઃસ્ત્રાવઓ સિવાયના અન્ય અંતઃસ્ત્રાવઓ', 'SC810-કિટકો અને દેડકાના જીવન ચક્ર પૂર્ણ કરવામાં અંતઃસ્ત્રાવઓનો ફાળો', 'SC804-પ્રજનન સ્વાસ્થ્ય', 'SC804-કિશોરોની પોષણ આવશ્યકતાઓ', 'SC815-વ્યક્તિગત સ્વચ્છતા', 'SC815-શારીરિક વ્યાયામ,નશાકારક પદાર્થોને ના કહો', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC805-કિશોરાવસ્થા તેમજ તરુણાવસ્થા', 'SC804-તરુણાવસ્થામાં થતાં ફેરફાર-ઊંચાઈમાં વધારો,શારીરિક આકારમાં બદલાવ,અવાજમાં બદલાવ', 'SC810-પ્રજનન અંગોનો વિકાસ', 'SC815-માનસિક,બૌધ્ધિક તેમજ સંવેદનાત્મક પરિપક્વતા પ્રાપ્ત થવી', 'SC801-ગૌણ જાતીય લક્ષણો', 'SC810-મનુષ્યમાં પ્રજનન કાળની અવધિ', 'SC805-બાળકનું લિંગનિશ્ચયન', 'SC810-લિંગી અંતઃસ્ત્રાવઓ સિવાયના અન્ય અંતઃસ્ત્રાવઓ', 'SC810-કિટકો અને દેડકાના જીવન ચક્ર પૂર્ણ કરવામાં અંતઃસ્ત્રાવઓનો ફાળો', 'SC804-પ્રજનન સ્વાસ્થ્ય', 'SC804-કિશોરોની પોષણ આવશ્યકતાઓ', 'SC815-વ્યક્તિગત સ્વચ્છતા', 'SC815-શારીરિક વ્યાયામ,નશાકારક પદાર્થોને ના કહો', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC805-કિશોરાવસ્થા તેમજ તરુણાવસ્થા', 'SC804-તરુણાવસ્થામાં થતાં ફેરફાર-ઊંચાઈમાં વધારો,શારીરિક આકારમાં બદલાવ,અવાજમાં બદલાવ', 'SC810-પ્રજનન અંગોનો વિકાસ', 'SC815-માનસિક,બૌધ્ધિક તેમજ સંવેદનાત્મક પરિપક્વતા પ્રાપ્ત થવી', 'SC801-ગૌણ જાતીય લક્ષણો', 'SC810-મનુષ્યમાં પ્રજનન કાળની અવધિ', 'SC805-બાળકનું લિંગનિશ્ચયન', 'SC810-લિંગી અંતઃસ્ત્રાવઓ સિવાયના અન્ય અંતઃસ્ત્રાવઓ', 'SC810-કિટકો અને દેડકાના જીવન ચક્ર પૂર્ણ કરવામાં અંતઃસ્ત્રાવઓનો ફાળો', 'SC804-પ્રજનન સ્વાસ્થ્ય', 'SC804-કિશોરોની પોષણ આવશ્યકતાઓ', 'SC815-વ્યક્તિગત સ્વચ્છતા', 'SC815-શારીરિક વ્યાયામ,નશાકારક પદાર્થોને ના કહો', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        બળ_અને_દબાણ: {
+            subcategories: {
+                A: ['SC805-બળ-ધક્કો કે ખેંચાણ', 'SC805-બળો આંતરિક ક્રિયાને કારણે ઉદભવે છે', 'SC805-બળની શરૂઆત', 'SC805-બળ પદાર્થની ગતિની અવસ્થા બદલી શકે છે', 'SC805-બળ પદાર્થનો આકાર બદલી શકે છે', 'SC801-સ્નાયુબળ(સંપર્ક બળ)', 'SC801-ઘર્ષણ(સંપર્ક બળ)', 'SC801-ચુંબકીય બળ(બિન સંપર્ક બળ)', 'SC801-સ્થિત વિદ્યુત બળ(બિન સંપર્ક બળ)', 'SC801-ગુરુત્વાકર્ષણ બળ(બિન સંપર્ક બળ)', 'SC805-દબાણ', 'SC805-પ્રવાહી તથા વાયુઓ દ્વારા લગાડવામાં આવતું દબાણ', 'SC805-વતાવરણનું દબાણ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC805-બળ-ધક્કો કે ખેંચાણ', 'SC805-બળો આંતરિક ક્રિયાને કારણે ઉદભવે છે', 'SC805-બળની શરૂઆત', 'SC805-બળ પદાર્થની ગતિની અવસ્થા બદલી શકે છે', 'SC805-બળ પદાર્થનો આકાર બદલી શકે છે', 'SC801-સ્નાયુબળ(સંપર્ક બળ)', 'SC801-ઘર્ષણ(સંપર્ક બળ)', 'SC801-ચુંબકીય બળ(બિન સંપર્ક બળ)', 'SC801-સ્થિત વિદ્યુત બળ(બિન સંપર્ક બળ)', 'SC801-ગુરુત્વાકર્ષણ બળ(બિન સંપર્ક બળ)', 'SC805-દબાણ', 'SC805-પ્રવાહી તથા વાયુઓ દ્વારા લગાડવામાં આવતું દબાણ', 'SC805-વતાવરણનું દબાણ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC805-બળ-ધક્કો કે ખેંચાણ', 'SC805-બળો આંતરિક ક્રિયાને કારણે ઉદભવે છે', 'SC805-બળની શરૂઆત', 'SC805-બળ પદાર્થની ગતિની અવસ્થા બદલી શકે છે', 'SC805-બળ પદાર્થનો આકાર બદલી શકે છે', 'SC801-સ્નાયુબળ(સંપર્ક બળ)', 'SC801-ઘર્ષણ(સંપર્ક બળ)', 'SC801-ચુંબકીય બળ(બિન સંપર્ક બળ)', 'SC801-સ્થિત વિદ્યુત બળ(બિન સંપર્ક બળ)', 'SC801-ગુરુત્વાકર્ષણ બળ(બિન સંપર્ક બળ)', 'SC805-દબાણ', 'SC805-પ્રવાહી તથા વાયુઓ દ્વારા લગાડવામાં આવતું દબાણ', 'SC805-વતાવરણનું દબાણ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        ઘર્ષણ: {
+            subcategories: {
+                A: ['SC805-ઘર્ષણ બળ', 'SC805-ઘર્ષણ પર અસર કરતાં પરિબળો', 'SC805-ઘર્ષણ:એક જરૂરી દૂષણ', 'SC811-ઘર્ષણ વધારવું કે ઘટાડવુ', 'SC811-પૈડું ઘર્ષણ ઘટાડે છે', 'SC805-તરલ ઘર્ષણ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC805-ઘર્ષણ બળ', 'SC805-ઘર્ષણ પર અસર કરતાં પરિબળો', 'SC805-ઘર્ષણ:એક જરૂરી દૂષણ', 'SC811-ઘર્ષણ વધારવું કે ઘટાડવુ', 'SC811-પૈડું ઘર્ષણ ઘટાડે છે', 'SC805-તરલ ઘર્ષણ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC805-ઘર્ષણ બળ', 'SC805-ઘર્ષણ પર અસર કરતાં પરિબળો', 'SC805-ઘર્ષણ:એક જરૂરી દૂષણ', 'SC811-ઘર્ષણ વધારવું કે ઘટાડવુ', 'SC811-પૈડું ઘર્ષણ ઘટાડે છે', 'SC805-તરલ ઘર્ષણ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        ધ્વનિ: {
+            subcategories: {
+                A: ['SC805-કંપન કરતાં પદાર્થ દ્વારા ધ્વનિ ઉત્પન થાય છે', 'SC810-મનુષ્ય દ્વારા ઉત્પન થતો ધ્વનિ', 'SC810-ધ્વનિ પપ્રસરણ માટે માધ્યમની જરૂર પડે છે', 'SC803-આપણે આપણાં કાન વડે ધ્વનિ સાંભળીએ છીએ', 'SC805-કંપનનો વિસ્તાર,આવર્તકાળ અને આવૃતિ', 'SC801-પ્રબળતા અને પીચ', 'SC801-શ્રાવ્ય અને અશ્રાવ્ય ધ્વનિ', 'SC811-ઘોંઘાટ અને સંગીત', 'SC811-ધ્વનિ પ્રદૂષણ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC805-કંપન કરતાં પદાર્થ દ્વારા ધ્વનિ ઉત્પન થાય છે', 'SC810-મનુષ્ય દ્વારા ઉત્પન થતો ધ્વનિ', 'SC810-ધ્વનિ પપ્રસરણ માટે માધ્યમની જરૂર પડે છે', 'SC803-આપણે આપણાં કાન વડે ધ્વનિ સાંભળીએ છીએ', 'SC805-કંપનનો વિસ્તાર,આવર્તકાળ અને આવૃતિ', 'SC801-પ્રબળતા અને પીચ', 'SC801-શ્રાવ્ય અને અશ્રાવ્ય ધ્વનિ', 'SC811-ઘોંઘાટ અને સંગીત', 'SC811-ધ્વનિ પ્રદૂષણ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC805-કંપન કરતાં પદાર્થ દ્વારા ધ્વનિ ઉત્પન થાય છે', 'SC810-મનુષ્ય દ્વારા ઉત્પન થતો ધ્વનિ', 'SC810-ધ્વનિ પપ્રસરણ માટે માધ્યમની જરૂર પડે છે', 'SC803-આપણે આપણાં કાન વડે ધ્વનિ સાંભળીએ છીએ', 'SC805-કંપનનો વિસ્તાર,આવર્તકાળ અને આવૃતિ', 'SC801-પ્રબળતા અને પીચ', 'SC801-શ્રાવ્ય અને અશ્રાવ્ય ધ્વનિ', 'SC811-ઘોંઘાટ અને સંગીત', 'SC811-ધ્વનિ પ્રદૂષણ', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        વિદ્યુતપ્રવાહની_રાસાયણિક_અસરો: {
+            subcategories: {
+                A: ['SC801-શું પ્રવાહી વિદ્યુતનું વહન કરે છે?', 'SC805-વિદ્યુતપ્રવાહની રાસાયણિક અસરો', 'SC805-ઇલેક્ટ્રોપ્લેટિંગ(ઢોળ ચઢાવવો)', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC801-શું પ્રવાહી વિદ્યુતનું વહન કરે છે?', 'SC805-વિદ્યુતપ્રવાહની રાસાયણિક અસરો', 'SC805-ઇલેક્ટ્રોપ્લેટિંગ(ઢોળ ચઢાવવો)', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC801-શું પ્રવાહી વિદ્યુતનું વહન કરે છે?', 'SC805-વિદ્યુતપ્રવાહની રાસાયણિક અસરો', 'SC805-ઇલેક્ટ્રોપ્લેટિંગ(ઢોળ ચઢાવવો)', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        },
+        કેટલીક_કુદરતી_ઘટનાઓ: {
+            subcategories: {
+                A: ['SC805-વીજળી',  'SC805-ઘસવાથી વીજભારની ઉત્પતિ', 'SC805-વીજભારના પ્રકારો અને તેની આંતરક્રિયાઓ', 'SC805-વિજભારનું વહન', 'SC805-વીજળીની વાર્તા', 'SC805-વીજળી સુરક્ષા', 'SC805-ભૂકંપ', 'SC805-ભૂકંપ શાથી થાય છે?', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
 
-        function clearSubcategoryDropdowns() {
+                B: ['SC805-વીજળી',  'SC805-ઘસવાથી વીજભારની ઉત્પતિ', 'SC805-વીજભારના પ્રકારો અને તેની આંતરક્રિયાઓ', 'SC805-વિજભારનું વહન', 'SC805-વીજળીની વાર્તા', 'SC805-વીજળી સુરક્ષા', 'SC805-ભૂકંપ', 'SC805-ભૂકંપ શાથી થાય છે?', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC805-વીજળી',  'SC805-ઘસવાથી વીજભારની ઉત્પતિ', 'SC805-વીજભારના પ્રકારો અને તેની આંતરક્રિયાઓ', 'SC805-વિજભારનું વહન', 'SC805-વીજળીની વાર્તા', 'SC805-વીજળી સુરક્ષા', 'SC805-ભૂકંપ', 'SC805-ભૂકંપ શાથી થાય છે?', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+
+
+            }
+        },
+        પ્રકાશ: {
+            subcategories: {
+                A: ['SC805-વસ્તુઓ શેના લીધે દ્રશ્યમાન થાય છે?', 'SC807-પરાવર્તનના નિયમો', 'SC807-નિયમિત અને અનિયમિત પરાવર્તન', 'SC810-પરાવર્તિત પ્રકાશને ફરીથી પરાવર્તિત કરી શકાય છે', 'SC805-ગુણક પ્રતિબિંબ', 'SC805-કેલિડોસ્કોપ', 'SC805-સૂર્યપ્રકાશ-શ્વેત કે રંગીન', 'SC803-આપણી આંખોની અંદર શું છે?', 'SC803-આંખોની દેખભાળ',  'SC803-ખામીયુક્ત દ્રષ્ટિવાળા વ્યક્તિઓ વાંચી અને લખી શકે છે', 'SC812-બ્રેનલિપિ હું છે?', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                B: ['SC805-વસ્તુઓ શેના લીધે દ્રશ્યમાન થાય છે?', 'SC807-પરાવર્તનના નિયમો', 'SC807-નિયમિત અને અનિયમિત પરાવર્તન', 'SC810-પરાવર્તિત પ્રકાશને ફરીથી પરાવર્તિત કરી શકાય છે', 'SC805-ગુણક પ્રતિબિંબ', 'SC805-કેલિડોસ્કોપ', 'SC805-સૂર્યપ્રકાશ-શ્વેત કે રંગીન', 'SC803-આપણી આંખોની અંદર શું છે?', 'SC803-આંખોની દેખભાળ',  'SC803-ખામીયુક્ત દ્રષ્ટિવાળા વ્યક્તિઓ વાંચી અને લખી શકે છે', 'SC812-બ્રેનલિપિ હું છે?', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+                C: ['SC805-વસ્તુઓ શેના લીધે દ્રશ્યમાન થાય છે?', 'SC807-પરાવર્તનના નિયમો', 'SC807-નિયમિત અને અનિયમિત પરાવર્તન', 'SC810-પરાવર્તિત પ્રકાશને ફરીથી પરાવર્તિત કરી શકાય છે', 'SC805-ગુણક પ્રતિબિંબ', 'SC805-કેલિડોસ્કોપ', 'SC805-સૂર્યપ્રકાશ-શ્વેત કે રંગીન', 'SC803-આપણી આંખોની અંદર શું છે?', 'SC803-આંખોની દેખભાળ',  'SC803-ખામીયુક્ત દ્રષ્ટિવાળા વ્યક્તિઓ વાંચી અને લખી શકે છે', 'SC812-બ્રેનલિપિ હું છે?', 'સ્વાધ્યાય કાર્ય', 'પુનરાવર્તન', 'પ્રવૃતિ'],
+            }
+        }
+    },
+     અન્ય_પ્રવૃતિ: {
+        અન્ય_પ્રવૃતિ: {
+            subcategories: {
+                A: ['બાલસભા', 'રમત ગમત', 'એકમ કસોટી', 'યોગ-વ્યાયામ', 'કસરત', 'નવરાત્રી ઉજવણી', 'જન્માષ્ટમી ઉજવણી', 'પતંગોત્સવ', 'બાલમેળો', 'યોગ દિન', 'વિજ્ઞાન મેળો', 'બાળ સંસદ', 'કલા ઉત્સવ', 'રાખડી સ્પર્ધા', 'રંગોળી સ્પર્ધા', 'ચિત્ર સ્પર્ધા', 'નિબંધ લેખન', 'શાળા ટ્વીનિંગ', 'ક્વિઝ', 'અન-અધ્યયન', 'ઓફિસ વર્ક'],
+                B: ['બાલસભા', 'રમત ગમત', 'એકમ કસોટી', 'યોગ-વ્યાયામ', 'કસરત', 'નવરાત્રી ઉજવણી', 'જન્માષ્ટમી ઉજવણી', 'પતંગોત્સવ', 'બાલમેળો', 'યોગ દિન', 'વિજ્ઞાન મેળો', 'બાળ સંસદ', 'કલા ઉત્સવ', 'રાખડી સ્પર્ધા', 'રંગોળી સ્પર્ધા', 'ચિત્ર સ્પર્ધા', 'નિબંધ લેખન', 'શાળા ટ્વીનિંગ', 'ક્વિઝ', 'અન-અધ્યયન', 'ઓફિસ વર્ક'],
+                C: ['બાલસભા', 'રમત ગમત', 'એકમ કસોટી', 'યોગ-વ્યાયામ', 'કસરત', 'નવરાત્રી ઉજવણી', 'જન્માષ્ટમી ઉજવણી', 'પતંગોત્સવ', 'બાલમેળો', 'યોગ દિન', 'વિજ્ઞાન મેળો', 'બાળ સંસદ', 'કલા ઉત્સવ', 'રાખડી સ્પર્ધા', 'રંગોળી સ્પર્ધા', 'ચિત્ર સ્પર્ધા', 'નિબંધ લેખન', 'શાળા ટ્વીનિંગ', 'ક્વિઝ', 'અન-અધ્યયન', 'ઓફિસ વર્ક'],
+
+                 }
+        }
+  }
+};
+
+// Map internal names to display names
+const displayNames = {
+    અપૂર્ણાંક_સંખ્યાઓ: '7-અપૂર્ણાંક સંખ્યાઓ',
+    દશાંસ_સંખ્યાઓ: '8-દશાંસ સંખ્યાઓ ',
+    માહિતીનું_નિયમન: '9-માહિતીનું નિયમન',
+    માપન: '10-માપન',
+    બીજગણિત: '11-બીજગણિત',
+    ગુણોતર_અને_પ્રમાણ: '12-ગુણોતર અને પ્રમાણ',
+    સજીવો_લક્ષણો_અને_નિવાસસ્થાન: '6-સજીવો-લક્ષણો અને નિવાસસ્થાન',
+    ગતિ_અને_અંતરનું_માપન: '7-ગતિ અને અંતરનું માપન',
+    પ્રકાશ_પડછાયો_અને_પરાવર્તન: '8-પ્રકાશ,પડછાયો અને પરાવર્તન',
+    વિધ્યુત_તથા_પરિપથ: '9-વિદ્યુત તથા પરિપથ',
+    ચુંબક_સાથે_ગમ્મત: '10-ચુંબક સાથે ગમ્મત',
+    આપણી_આસપાસ_હવા: '11-આપણી આસપાસ હવા',
+    રાશીઓનિ_તુલના: '7-રાશીઓનિ તુલના',
+    સંમેય_સંખ્યાઓ: '8-સંમેય સંખ્યાઓ',
+    પરિમિતિ_અને_ક્ષેત્રફળ: '9-પરિમિતિ અને ક્ષેત્રફળ',
+    બીજગણિતીય_પદાવલિ: '10-બીજગણિતીય પદાવલિ',
+    ઘાત_અને_ઘાતાંક: '11-ઘાત અને ઘાતાંક',
+    સંમિતિ: '12-સંમિતિ',
+    ઘનઆકારોનું_પ્રત્યક્ષીકરણ: '13-ઘન આકારોનું પ્રત્યક્ષીકરણ',
+    પ્રાણીઓ_અને_વનસ્પતિમાં_વહન: '7-પ્રાણીઓ અને વનસ્પતિમાં વહન',
+    વનસ્પતિમાં_પ્રજનન: '8-વનસ્પતિમાં પ્રજનન',
+    ગતિ_અને_સમય: '9-ગતિ અને સમય',
+    વિદ્યુતપ્રવાહ_અને_તેની_અસરો: '10-વિદ્યુતપ્રવાહ અને તેની અસરો',
+    પ્રકાશ: '11-પ્રકાશ',
+    જંગલો_આપણી_જીવાદોરી: '12-જંગલો આપણી જીવાદોરી',
+    દૂષિત_પાણીની_વાર્તા: '13-દૂષિત પાણીની વાર્તા',
+    રાશિઓની_તુલના: '7-રાશિઓની તુલના',
+    બૈજિક_પદાવલિ_અને_નિત્યસમ: '8-બૈજિક પદાવલિ અને નિત્યસમ',
+    માપન: '9-માપન',
+    ઘાત_અને_ઘાતાંક: '10-ઘાત અને ઘાતાંક',
+    સમપ્રમાણ_અને_વ્યસ્તપ્રમાણ: '11-સમપ્રમાણ અને વ્યસ્તપ્રમાણ',
+    અવયવીકરણ: '12-અવયવીકરણ',
+    આલેખ_પરિચય: '13-આલેખ પરિચય',
+    કિશોરાવસ્થા_તરફ: '7-કિશોરાવસ્થા તરફ',
+    બળ_અને_દબાણ: '8-બળ અને દબાણ',
+    ઘર્ષણ: '9-ઘર્ષણ',
+    ધ્વનિ: '10-ધ્વનિ',
+    વિદ્યુતપ્રવાહની_રાસાયણિક_અસરો: '11-વિદ્યુતપ્રવાહની રાસાયણિક અસરો',
+    કેટલીક_કુદરતી_ઘટનાઓ: '12-કેટલીક કુદરતી ઘટનાઓ',
+    પ્રકાશ: '13-પ્રકાશ',
+};
+
+
+
+function populateTopics() {
+    const subject = document.getElementById('subject').value;
+    const topicDropdown = document.getElementById('topic');
+    topicDropdown.innerHTML = '<option value="">-- Choose a Topic --</option>';
+    if (data[subject]) {
+        Object.keys(data[subject]).forEach(topicKey => {
+            const option = document.createElement('option');
+            option.value = topicKey; // Internal key
+            option.textContent = displayNames[topicKey] || topicKey; // Display name if available
+            topicDropdown.appendChild(option);
+        });
+        topicDropdown.disabled = false;
+    }
+}
+
+function populateSubcategories() {
+    const subject = document.getElementById('subject').value;
+    const topic = document.getElementById('topic').value;
+    clearSubcategoryDropdowns();
+    if (data[subject] && data[subject][topic]) {
+        const subcategories = data[subject][topic].subcategories;
+        if (subcategories.A) {
             const subcategoryADropdown = document.getElementById('subcategoryA');
+            subcategories.A.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                subcategoryADropdown.appendChild(opt);
+            });
+            subcategoryADropdown.disabled = false;
+        }
+        if (subcategories.B) {
             const subcategoryBDropdown = document.getElementById('subcategoryB');
+            subcategories.B.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                subcategoryBDropdown.appendChild(opt);
+            });
+            subcategoryBDropdown.disabled = false;
+        }
+        if (subcategories.C) {
             const subcategoryCDropdown = document.getElementById('subcategoryC');
-
-            subcategoryADropdown.innerHTML = '<option value="">-- Choose Subcategory A --</option>';
-            subcategoryADropdown.disabled = true;
-
-            subcategoryBDropdown.innerHTML = '<option value="">-- Choose Subcategory B --</option>';
-            subcategoryBDropdown.disabled = true;
-
-            subcategoryCDropdown.innerHTML = '<option value="">-- Choose Subcategory C --</option>';
-            subcategoryCDropdown.disabled = true;
+            subcategories.C.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                subcategoryCDropdown.appendChild(opt);
+            });
+            subcategoryCDropdown.disabled = false;
         }
+    }
+}
 
-        function updateDate() {
-            const dateInput = document.getElementById('lessonDate').value;
-            document.getElementById('selectedDate').innerText = `Date: ${dateInput}`;
+// Your other functions remain the same
+
+    function updateDate() {
+        const dateInput = document.getElementById('lessonDate').value; // ઇનપુટમાંથી તારીખ મેળવો
+        const dateParts = dateInput.split('-'); // yyyy-mm-dd ફોર્મેટને ટુકડા કરવો
+        
+        if (dateParts.length === 3) {
+            const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`; // dd-mm-yyyy ફોર્મેટમાં ફેરવો
+            document.getElementById('selectedDate').innerText = `તારીખ: ${formattedDate}`; // ફોર્મેટ થયેલ તારીખ દર્શાવો
         }
+    }
+
+       
 
         function updateDay() {
             const dayInput = document.getElementById('daySelect').value;
-            document.getElementById('selectedDay').innerText = `Day: ${dayInput}`;
+            document.getElementById('selectedDay').innerText = `વાર: ${dayInput}`;
         }
 
         function submitLessonPlan() {
@@ -509,20 +999,23 @@
             // document.getElementById('selectedDay').innerText = 'Day:'; // Clear displayed day
         }
 
-        function printTable() {
-            const printContents = document.getElementById('tableFlashcard').innerHTML;
-            const newWindow = window.open('', '', 'width=900,height=600');
-            newWindow.document.write('<html><head><title>Print</title>');
-            newWindow.document.write('</head><body>');
-            newWindow.document.write(printContents);
-            newWindow.document.write('</body></html>');
-            newWindow.document.close();
-            newWindow.print();
-        }
+ function printTable() {
+    const printContents = document.getElementById('tableFlashcard').innerHTML;
+    const teacherSignature = document.getElementById('teacherSignature').innerHTML;
+
+    const newWindow = window.open('', '', 'width=900,height=600');
+    newWindow.document.write('<html><head><title>Print</title></head><body>');
+    newWindow.document.write(printContents);
+    newWindow.document.write('<br><br>'); // Add space before the signature
+    newWindow.document.write('<div>' + teacherSignature + '</div>'); // Add the signature
+    newWindow.document.write('</body></html>');
+    newWindow.document.close();
+    newWindow.print();
+}
 
         function generatePDF() {
             const printContents = document.getElementById('tableFlashcard').innerHTML;
-            const newWindow = window.open('', '', 'width=900,height=600');
+            const newWindow = window.open('', '', 'width=1000,height=900');
             newWindow.document.write('<html><head><title>Generate PDF</title>');
             newWindow.document.write('</head><body>');
             newWindow.document.write(printContents);
@@ -553,6 +1046,66 @@
             a.click();
             document.body.removeChild(a);
         }
+        function populateSubcategories() {
+    const subject = document.getElementById('subject').value;
+    const topic = document.getElementById('topic').value;
+    clearSubcategoryDropdowns();  // Clear existing options first
+
+    if (data[subject] && data[subject][topic]) {
+        const subcategories = data[subject][topic].subcategories;
+
+        // Populate and enable subcategory A
+        if (subcategories.A) {
+            const subcategoryADropdown = document.getElementById('subcategoryA');
+            subcategories.A.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                subcategoryADropdown.appendChild(opt);
+            });
+            subcategoryADropdown.disabled = false; // Enable dropdown
+        }
+
+        // Populate and enable subcategory B
+        if (subcategories.B) {
+            const subcategoryBDropdown = document.getElementById('subcategoryB');
+            subcategories.B.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                subcategoryBDropdown.appendChild(opt);
+            });
+            subcategoryBDropdown.disabled = false; // Enable dropdown
+        }
+
+        // Populate and enable subcategory C
+        if (subcategories.C) {
+            const subcategoryCDropdown = document.getElementById('subcategoryC');
+            subcategories.C.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                subcategoryCDropdown.appendChild(opt);
+            });
+            subcategoryCDropdown.disabled = false; // Enable dropdown
+        }
+    }
+}
+
+function clearSubcategoryDropdowns() {
+    const subcategoryADropdown = document.getElementById('subcategoryA');
+    const subcategoryBDropdown = document.getElementById('subcategoryB');
+    const subcategoryCDropdown = document.getElementById('subcategoryC');
+
+    subcategoryADropdown.innerHTML = '<option value="">-- પસંદ કરો --</option>';
+    subcategoryBDropdown.innerHTML = '<option value="">-- પસંદ કરો --</option>';
+    subcategoryCDropdown.innerHTML = '<option value="">-- પસંદ કરો --</option>';
+
+    subcategoryADropdown.disabled = true;
+    subcategoryBDropdown.disabled = true;
+    subcategoryCDropdown.disabled = true;
+}
+
     </script>
     <script>
     function printTable() {
@@ -563,7 +1116,7 @@
         newWindow.document.write(`
             body {
                 font-family: 'Arial', sans-serif;
-                margin: 20px;
+                margin: 10px;
                 background-color: #fff;
                 color: #000;
             }
@@ -572,9 +1125,9 @@
                 border-collapse: collapse;
             }
             th, td {
-                padding: 10px;
+                padding: 5px;
                 border: 1px solid #dee2e6;
-                text-align: left;
+                text-align: center;
             }
             th {
                 background-color: #007bff;
@@ -604,7 +1157,7 @@
                 padding: 0;
                 background-color: #fff;
                 color: #000;
-                font-size: 16px; /* Default font size */
+                font-size: 8px; /* Default font size */
             }
             .print-container {
                 padding: 10px; /* Reduced padding */
@@ -616,7 +1169,7 @@
             table {
                 width: 100%;
                 border-collapse: collapse;
-                margin-top: 10px; /* Reduced margin */
+                margin-top: 5px; /* Reduced margin */
                 page-break-inside: auto; /* Prevent page breaks inside the table */
             }
             thead {
@@ -628,7 +1181,7 @@
             th {
                 padding: 8px; /* Reduced padding */
                 border: 1px solid #dee2e6;
-                text-align: left;
+                text-align: center;
                 font-weight: bold;
                 color: #000; /* Dark color for thead text */
                 background-color: #007bff; /* Blue background for header */
@@ -647,7 +1200,7 @@
             h1, h2, p {
                 text-align: center;
                 font-weight: bold;
-                margin-bottom: 15px; /* Kept for spacing */
+                margin-bottom: 5px; /* Kept for spacing */
             }
             @media print {
                 body, html {
@@ -688,10 +1241,37 @@
         newWindow.close();
     }
 </script>
+<script>
+    document.getElementById("download-btn").addEventListener("click", function() {
+        var element = document.getElementById('pdf-content');
+        html2pdf().from(element).save();
+    });
+</script>
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
    <script> document.addEventListener('contextmenu', event => event.preventDefault());</script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
+    <title>પૃષ્ઠ રિફ્રેશ બટન</title>
+    <script>
+        function refreshPage() {
+            window.location.reload(); // પૃષ્ઠને ફરીથી લોડ કરે છે
+        }
+    </script>
+</head>
+<body>
+    
+    <p></p>
+    <button onclick="refreshPage()">Refresh</button> <!-- બટન -->
 </body>
 </html>
